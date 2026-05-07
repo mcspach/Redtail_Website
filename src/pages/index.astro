@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import Button from '../components/ui/Button.astro';
+---
+
+<BaseLayout title="Home">
+  <main>
+    <section class="section">
+      <Container>
+        <div class="stack">
+          <h1>Astro Site Ready</h1>
+          <p>UI primitives are working.</p>
+
+          <div class="cluster">
+            <Button href="#">Primary Button</Button>
+            <Button href="#" variant="secondary">Secondary Button</Button>
+          </div>
+        </div>
+      </Container>
+    </section>
+  </main>
+</BaseLayout>

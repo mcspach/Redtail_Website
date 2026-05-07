@@ -1,0 +1,43 @@
+---
+import '../styles/global.scss';
+
+const { title = 'Site Title', description = '' } = Astro.props;
+const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- TODO SEO -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- TODO Adobe Fonts (replace later) -->
+    <!-- <link rel="stylesheet" href="https://use.typekit.net/xxxxxxx.css"> -->
+
+    <!-- TODO Favicon (optional) -->
+    <!-- <link rel="icon" href="/favicon.ico" /> -->
+
+    <!-- TODO: Open Graph / social meta -->
+    {gaMeasurementId && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}></script>
+        <script define:vars={{ gaMeasurementId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', gaMeasurementId);
+        </script>
+      </>
+    )}
+  </head>
+
+  <body>
+  <div id="site-root">
+    <slot />
+  </div>
+</body>
+</html>
