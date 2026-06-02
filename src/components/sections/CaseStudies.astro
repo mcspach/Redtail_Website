@@ -1,0 +1,32 @@
+---
+import Section from '../ui/Section.astro';
+import Container from '../ui/Container.astro';
+import { featuredCaseStudies, getCaseStudyUrl } from '../../data/caseStudies';
+
+const { excludeSlug = '' } = Astro.props;
+const caseStudies = featuredCaseStudies.filter((study) => study.slug !== excludeSlug);
+---
+
+<Section class="case-studies" tone="dark">
+  <Container size="wide">
+    <div class="case-studies__inner">
+      <h2 class="case-studies__title">Case Studies</h2>
+
+      <div class="case-studies__panel">
+        <div class="case-studies__grid">
+          {caseStudies.map((study) => (
+            <a href={getCaseStudyUrl(study.slug)} class="case-study-card">
+              <img
+                src={study.cardImage}
+                alt={study.cardAlt}
+                class="case-study-card__image"
+                loading="lazy"
+              />
+              <h3 class="case-study-card__title">{study.title}</h3>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </Container>
+</Section>

@@ -1,11 +1,23 @@
 ---
+import { withBase } from '../../utils/paths';
+
 const {
   href = '#',
   variant = 'primary',
   class: className = '',
+  target,
+  rel,
 } = Astro.props;
+
+const computedRel = rel ?? (target === '_blank' ? 'noreferrer' : undefined);
+const resolvedHref = withBase(href);
 ---
 
-<a href={href} class={`button button--${variant} ${className}`}>
+<a
+  href={resolvedHref}
+  target={target}
+  rel={computedRel}
+  class={`button button--${variant} ${className}`.trim()}
+>
   <slot />
 </a>

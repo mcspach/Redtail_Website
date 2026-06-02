@@ -1,0 +1,91 @@
+---
+import Section from '../ui/Section.astro';
+import Container from '../ui/Container.astro';
+import Heading from '../ui/Heading.astro';
+import Button from '../ui/Button.astro';
+
+const { showHeading = true } = Astro.props;
+
+const offerings = [
+  {
+    title: 'Custom Website Package',
+    description:
+      'Unleash new opportunities with a fresh website and online strategy.',
+    bullets: [
+      'Research and Competitive Analysis',
+      'Responsive Design from Scratch',
+      'Expert-Crafted Web Experiences in Webflow',
+      'SEO ( Reviews + Data + Content Creation )',
+    ],
+  },
+  {
+    title: 'Brand + Website Package',
+    description:
+      'We build a unique identity for your brand, then apply the visual style to a full website and strategy.',
+    bullets: [
+      'Enhanced Research and Discovery',
+      'Complete Brand Design Package',
+      'Complete Custom Website Package',
+      'Online Store Options',
+    ],
+  },
+  {
+    title: 'Hourly Design',
+    description:
+      'Available for web and graphic design. Full-service video production.',
+    layout: 'compact',
+  },
+  {
+    title: 'Hourly Web Development',
+    description:
+      'Available for website maintenance, optimization, and custom development.',
+    layout: 'compact',
+  },
+  {
+    title: 'Audits',
+    description:
+      'Take a close look at your current online presence and explore improvement opportunities.',
+    bullets: [
+      'Brand Design Analysis',
+      'User Flow Breakdown',
+      'Maximize for Speed + Performance',
+      'Extensive SEO Report',
+    ],
+    layout: 'centerpiece',
+  },
+];
+---
+
+<Section class="services-list" tone="light">
+  <Container size="wide">
+    {showHeading && <Heading>Offerings</Heading>}
+
+    <div class="services-list__grid">
+      {offerings.map((offering) => (
+        <article
+          class:list={[
+            'services-list__card',
+            offering.layout && `services-list__card--${offering.layout}`,
+          ]}
+        >
+          <div class="services-list__card-inner">
+            <h3>{offering.title}</h3>
+            <p>{offering.description}</p>
+
+            {offering.bullets && (
+              <ul aria-label={`${offering.title} details`}>
+                {offering.bullets.map((bullet) => (
+                  <li>{bullet}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="services-list__actions">
+      <Button href="/contact/">Get a Quote</Button>
+    </div>
+  </Container>
+</Section>

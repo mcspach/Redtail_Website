@@ -1,23 +1,25 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Container from '../components/ui/Container.astro';
-import Button from '../components/ui/Button.astro';
+
+import HeroLrg from '../components/sections/HeroLrg.astro';
+import CaseStudies from '../components/sections/CaseStudies.astro';
+import Features from '../components/sections/Features.astro';
+import Work from '../components/sections/Work.astro';
+import Testimonial from '../components/sections/Testimonial.astro';
+import Logos from '../components/sections/Logos.astro';
+import Contact from '../components/sections/Contact.astro';
+// import Services from '../components/sections/Services.astro';
+// import Industries from '../components/sections/Industries.astro';
+import SocialProof from '../components/sections/SocialProof.astro';
 ---
 
-<BaseLayout title="Home">
+<BaseLayout title="RedTail Web Design">
   <main>
-    <section class="section">
-      <Container>
-        <div class="stack">
-          <h1>Astro Site Ready</h1>
-          <p>UI primitives are working.</p>
-
-          <div class="cluster">
-            <Button href="#">Primary Button</Button>
-            <Button href="#" variant="secondary">Secondary Button</Button>
-          </div>
-        </div>
-      </Container>
-    </section>
+    <HeroLrg />
+    <Work />
+    <Testimonial />
+    <Contact />
+    <CaseStudies />
+    <SocialProof />
   </main>
 </BaseLayout>

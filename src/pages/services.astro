@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+import HeroMd from '../components/sections/HeroMd.astro';
+import ServicesList from '../components/sections/ServicesList.astro';
+import Features from '../components/sections/Features.astro';
+import Testimonial from '../components/sections/Testimonial.astro'
+import CaseStudies from '../components/sections/CaseStudies.astro';
+import SocialProof from '../components/sections/SocialProof.astro';
+---
+
+<BaseLayout title="RedTail Web Design Services">
+  <main>
+    <HeroMd
+      eyebrow="Serving businesses around the globe"
+      head="Core Offerings"
+      subhead="Smart solutions for ambitious entrepreneurs."
+    />
+    <ServicesList showHeading={false} />
+    <Testimonial 
+      quote="Working with RedTail... significantly enhanced our agency's ability to connect with startups and small businesses across Southern California, bringing our digital essence to life."
+      author="Dominic C." 
+    />
+   <Features />
+    <CaseStudies />
+    <SocialProof />
+  </main>
+</BaseLayout>

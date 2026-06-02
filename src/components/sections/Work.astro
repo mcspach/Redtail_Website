@@ -1,0 +1,212 @@
+---
+import Section from '../ui/Section.astro';
+import Container from '../ui/Container.astro';
+import Heading from '../ui/Heading.astro';
+import { withBase } from '../../utils/paths';
+
+const { showTitle = true } = Astro.props;
+
+const workItems = [
+  {
+    image: withBase('/images/work/Mockup_UMGT_Website.png'),
+    alt: 'Ursa Major Global Tech brand and website mockup',
+    href: '#',
+  },
+  {
+    image: withBase('/images/work/Mockup_Design_Guide_UMGT.webp'),
+    alt: 'Ursa Major Global Tech design guide mockup',
+    href: '#',
+  },
+  {
+    image: withBase('/images/work/Bravo-Mockup.webp'),
+    alt: 'Bravo Farms website mockup shown on desktop and tablet devices',
+    href: '#',
+  },
+  {
+    image: withBase('/images/work/distinct-homepage-mockup.webp'),
+    alt: 'Distinct Creative Group website mockup displayed on a tablet',
+    href: '#',
+  },
+  {
+    image: withBase('/images/work/dc-marketing.webp'),
+    alt: 'High quality mickup of clean modern logo design for marketing firm',
+    href: '#',
+  },
+  {
+    image: withBase('/images/work/gasco-mockup.png'),
+    alt: 'Gasco website mockup displayed across multiple devices',
+  },
+  {
+    image: withBase('/images/work/design-studio.webp'),
+    alt: 'University website design Spring Arbor, through Modern Campus',
+  },
+];
+
+const marqueeRows = [
+  {
+    items: workItems,
+    reverse: false,
+    ariaLabel: 'Selected work previews',
+  },
+  {
+    items: workItems,
+    reverse: true,
+  },
+];
+---
+
+<Section class="work" tone="dark">
+  {showTitle && (
+    <Container>
+      <Heading tone="dark">Work</Heading>
+    </Container>
+  )}
+
+  <div class="work__rows">
+    {marqueeRows.map((row) => (
+      <div
+        class:list={[
+          'work__marquee',
+          row.reverse && 'work__marquee--reverse',
+        ]}
+        aria-label={row.ariaLabel}
+      >
+        <div
+          class:list={[
+            'work__track',
+            row.reverse && 'work__track--reverse',
+          ]}
+        >
+          <div class="work__group">
+            {row.items.map((item) => (
+              item.href ? (
+                <a href={item.href} class="work__item">
+                  <img
+                    src={item.image}
+                    alt={item.alt}
+                    class="work__image"
+                    loading="lazy"
+                  />
+                </a>
+              ) : (
+                <figure class="work__item">
+                  <img
+                    src={item.image}
+                    alt={item.alt}
+                    class="work__image"
+                    loading="lazy"
+                  />
+                </figure>
+              )
+            ))}
+          </div>
+
+          <div class="work__group" aria-hidden="true">
+            {row.items.map((item) => (
+              item.href ? (
+                <a href={item.href} class="work__item" tabIndex="-1">
+                  <img
+                    src={item.image}
+                    alt=""
+                    class="work__image"
+                    loading="lazy"
+                  />
+                </a>
+              ) : (
+                <figure class="work__item">
+                  <img
+                    src={item.image}
+                    alt=""
+                    class="work__image"
+                    loading="lazy"
+                  />
+                </figure>
+              )
+            ))}
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</Section>
+
+<script>
+  const WORK_MARQUEE_BASE_DURATION_SECONDS = 40;
+
+  const getWorkMarqueeMeasurements = (marquee) => {
+    const track = marquee.querySelector('.work__track');
+    const group = marquee.querySelector('.work__group');
+
+    if (!track || !group) {
+      return null;
+    }
+
+    const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || '0');
+    const groupWidth = group.getBoundingClientRect().width;
+
+    return {
+      groupWidth,
+      shift: groupWidth + gap,
+    };
+  };
+
+  const updateWorkMarquees = () => {
+    const marquees = Array.from(document.querySelectorAll('.work__marquee'));
+
+    if (!marquees.length) {
+      return;
+    }
+
+    const referenceMeasurements = getWorkMarqueeMeasurements(marquees[0]);
+
+    if (!referenceMeasurements || referenceMeasurements.shift <= 0) {
+      return;
+    }
+
+    const pixelsPerSecond =
+      referenceMeasurements.shift / WORK_MARQUEE_BASE_DURATION_SECONDS;
+
+    for (const marquee of marquees) {
+      const measurements = getWorkMarqueeMeasurements(marquee);
+
+      if (!measurements || measurements.shift <= 0) {
+        continue;
+      }
+
+      marquee.style.setProperty(
+        '--work-marquee-duration',
+        `${measurements.shift / pixelsPerSecond}s`,
+      );
+
+      if (!marquee.classList.contains('work__marquee--reverse')) {
+        continue;
+      }
+
+      const alignRight = marquee.getBoundingClientRect().width - measurements.groupWidth;
+
+      marquee.style.setProperty(
+        '--work-row-reverse-start',
+        `${alignRight - measurements.shift}px`,
+      );
+      marquee.style.setProperty('--work-row-reverse-end', `${alignRight}px`);
+    }
+  };
+
+  updateWorkMarquees();
+
+  const workResizeObserver = new ResizeObserver(() => {
+    updateWorkMarquees();
+  });
+
+  for (const marquee of document.querySelectorAll('.work__marquee')) {
+    workResizeObserver.observe(marquee);
+
+    const group = marquee.querySelector('.work__group');
+
+    if (group) {
+      workResizeObserver.observe(group);
+    }
+  }
+
+  window.addEventListener('load', updateWorkMarquees, { once: true });
+</script>

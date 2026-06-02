@@ -1,8 +1,11 @@
 ---
 import '../styles/global.scss';
 
+import Grain from '../components/sections/Grain.astro';
+import Header from '../components/sections/Header.astro';
+import Footer from '../components/sections/Footer.astro';
+
 const { title = 'Site Title', description = '' } = Astro.props;
-const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 ---
 
 <!DOCTYPE html>
@@ -15,29 +18,22 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
     <title>{title}</title>
     <meta name="description" content={description} />
 
-    <!-- TODO Adobe Fonts (replace later) -->
-    <!-- <link rel="stylesheet" href="https://use.typekit.net/xxxxxxx.css"> -->
+    <!-- Adobe Fonts (Cinzel and Open Sans Semicondensed) -->
+    <link rel="stylesheet" href="https://use.typekit.net/waa4jxr.css">
 
     <!-- TODO Favicon (optional) -->
     <!-- <link rel="icon" href="/favicon.ico" /> -->
 
     <!-- TODO: Open Graph / social meta -->
-    {gaMeasurementId && (
-      <>
-        <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}></script>
-        <script define:vars={{ gaMeasurementId }}>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', gaMeasurementId);
-        </script>
-      </>
-    )}
+
   </head>
 
   <body>
   <div id="site-root">
-    <slot />
-  </div>
+  <Grain />
+  <Header />
+  <slot />
+  <Footer />
+</div>
 </body>
 </html>

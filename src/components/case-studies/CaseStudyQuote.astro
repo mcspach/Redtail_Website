@@ -1,0 +1,13 @@
+---
+const {
+  author = '',
+  class: className = '',
+} = Astro.props;
+---
+
+<figure class={`case-study-quote ${className}`.trim()}>
+  <blockquote class="case-study-quote__body">
+    <slot />
+  </blockquote>
+  {author && <figcaption class="case-study-quote__author">{author}</figcaption>}
+</figure>

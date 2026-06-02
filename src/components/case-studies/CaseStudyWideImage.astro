@@ -1,0 +1,13 @@
+---
+const {
+  src,
+  alt,
+  caption = '',
+  class: className = '',
+} = Astro.props;
+---
+
+<figure class={`case-study-wide-image ${className}`.trim()}>
+  <img src={src} alt={alt} class="case-study-wide-image__image" loading="lazy" />
+  {caption && <figcaption class="case-study-wide-image__caption">{caption}</figcaption>}
+</figure>

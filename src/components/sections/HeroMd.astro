@@ -1,0 +1,30 @@
+---
+import Container from '../ui/Container.astro';
+
+const {
+  hiddenH1 = 'Premium Web Design. Based in Clovis, California. This is our Work.',
+  eyebrow = '',
+  head = 'Our Work',
+  subhead = 'Tailored solutions for growing brands.',
+} = Astro.props;
+---
+
+<section class="hero-md">
+  <Container>
+    <div class="hero-md__inner">
+      <div class="hero-md__headline">
+        <h1 class="sr-only">
+          {hiddenH1}
+        </h1>
+
+        {eyebrow && <p class="hero-md__eyebrow">{eyebrow}</p>}
+
+        <h2 class="hero-md__title font-family-body">
+          {head}
+        </h2>
+
+        {subhead && <p class="hero-md__subheadline">{subhead}</p>}
+      </div>
+    </div>
+  </Container>
+</section>

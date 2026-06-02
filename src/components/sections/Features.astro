@@ -1,0 +1,70 @@
+---
+import Section from '../ui/Section.astro';
+import Container from '../ui/Container.astro';
+import { withBase } from '../../utils/paths';
+
+const features = [
+  {
+    title: 'Strategic Partnership',
+    body:
+      'We become an extension of your team, collaborating to translate your vision into a web strategy that fuels growth. Our expertise becomes your new secret weapon, ensuring your website stands as a cornerstone of your success, not just a standalone project.',
+    icon: withBase('/images/graphics/Icon_3.webp'),
+  },
+  {
+    title: 'Elevate Your Brand',
+    body:
+      'Feature the excellence of your business. Our bespoke experiences transcend mere functionality, amplifying your brand identity as a powerful tool for attracting and engaging high-value clients.',
+    icon: withBase('/images/graphics/Icon_4.webp'),
+  },
+  {
+    title: 'Future-Proof Design',
+    body:
+      "Your website isn't just a snapshot in time; it's a foundation for future growth. We design with scalability and adaptability in mind, ensuring your digital home can evolve seamlessly alongside your business aspirations.",
+    icon: withBase('/images/graphics/Icon_2.webp'),
+  },
+  {
+    title: 'Authentic S.E.O',
+    body:
+      "We'll target relevant keywords, optimize content for clarity and authority, and build a robust backlink strategy that propels you to the top of search results. Leveraging the Google MyBusiness platform, we set you up for success by building a positive ranking from the inside out.",
+    icon: withBase('/images/graphics/Icon_5.webp'),
+  },
+  {
+    title: 'Seamless User Journeys',
+    body:
+      'Optimize every interaction with your website, ensuring intuitive navigation, lightning-fast loading times, and micro-interactions that delight and convert. Focus on user-centered design ensures your website becomes a frictionless gateway to your products and services.',
+    icon: withBase('/images/graphics/Icon_1.webp'),
+  },
+];
+---
+
+<Section class="features" tone="light">
+  <Container size="wide">
+    <div class="features__intro">
+      <p class="features__kicker">Crafting</p>
+      <h2 class="features__title">
+        <span>Captivating</span>
+        <span>Experiences</span>
+      </h2>
+    </div>
+
+    <div class="features__list">
+      {features.map((feature, index) => (
+        <article class={`feature-row ${index % 2 === 1 ? 'feature-row--reverse' : ''}`}>
+          <div class="feature-row__icon-wrap">
+            <img
+              src={feature.icon}
+              alt=""
+              class="feature-row__icon"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="feature-row__content">
+            <h3 class="feature-row__title">{feature.title}</h3>
+            <p class="feature-row__body">{feature.body}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </Container>
+</Section>

@@ -1,0 +1,18 @@
+---
+const {
+  as = 'section',
+  id,
+  tone = 'light',
+  size = 'default',
+  class: className = '',
+} = Astro.props;
+
+const Tag = as;
+---
+
+<Tag
+  id={id}
+  class={`section section--${tone} ${size !== 'default' ? `section--${size}` : ''} ${className}`.trim()}
+>
+  <slot />
+</Tag>
