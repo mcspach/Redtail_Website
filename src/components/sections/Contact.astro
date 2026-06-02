@@ -3,7 +3,6 @@ import Section from '../ui/Section.astro';
 import Container from '../ui/Container.astro';
 import Heading from '../ui/Heading.astro';
 import Button from '../ui/Button.astro';
-import { withBase } from '../../utils/paths';
 ---
 
 <Section class="contact" tone="light">
@@ -86,7 +85,7 @@ import { withBase } from '../../utils/paths';
 
       <aside class="contact__card">
         <div class="contact__card-image">
-          <img src={withBase('/images/headshot_spach3.webp')} alt="Matthew Spach headshot" />
+          <img src="/images/headshot_spach3.webp" alt="Matthew Spach headshot" />
         </div>
 
         <div class="contact__card-body">

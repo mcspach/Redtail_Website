@@ -1,6 +1,5 @@
 ---
 import Button from '../ui/Button.astro';
-import { withBase } from '../../utils/paths';
 
 const navItems = [
   { label: 'Home', href: '/' },
@@ -11,9 +10,9 @@ const navItems = [
 
 <header class="site-header">
   <div class="container site-header__inner">
-    <a href={withBase('/')} class="site-header__brand" aria-label="RedTail home">
+    <a href="/" class="site-header__brand" aria-label="RedTail home">
       <img
-        src={withBase('/images/graphics/Logo_Lockup_Red.svg')}
+        src="/images/graphics/Logo_Lockup_Red.svg"
         alt="RedTail Web Design"
         class="site-header__logo"
       />
@@ -21,7 +20,7 @@ const navItems = [
 
     <nav class="site-header__nav" aria-label="Main navigation">
       {navItems.map((item) => (
-        <a href={withBase(item.href)} class="site-header__link">
+        <a href={item.href} class="site-header__link">
           {item.label}
         </a>
       ))}

@@ -1,6 +1,4 @@
 ---
-import { withBase } from '../../utils/paths';
-
 const footerLinks = [
   { label: 'Home', href: '/' },
   { label: 'Work', href: '/case-studies/' },
@@ -15,7 +13,7 @@ const year = new Date().getFullYear();
   <div class="container site-footer__inner">
     <nav class="site-footer__nav" aria-label="Footer navigation">
       {footerLinks.map((item) => (
-        <a href={withBase(item.href)} class="site-footer__link">
+        <a href={item.href} class="site-footer__link">
           {item.label}
         </a>
       ))}
