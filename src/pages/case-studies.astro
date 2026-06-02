@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+import HeroMd from '../components/sections/HeroMd.astro';
+import Work from '../components/sections/Work.astro';
+import CaseStudyList from '../components/sections/CaseStudyList.astro';
+import Contact from '../components/sections/Contact.astro';
+import SocialProof from '../components/sections/SocialProof.astro';
+---
+
+<BaseLayout title="RedTail Web Design Case Studies">
+  <main>
+    <HeroMd
+      eyebrow="Explore our work"
+      head="Case Studies"
+      subhead="A closer look at brand, web, and ecommerce work."
+    />
+    <Work showTitle={false} />
+    <CaseStudyList />
+    <Contact />
+    <SocialProof />
+  </main>
+</BaseLayout>

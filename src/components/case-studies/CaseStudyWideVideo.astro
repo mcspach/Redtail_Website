@@ -1,0 +1,36 @@
+---
+const {
+  src = '',
+  embedUrl = '',
+  title = 'Case study video',
+  poster = '',
+  caption = '',
+  class: className = '',
+} = Astro.props;
+---
+
+<figure class={`case-study-wide-video ${className}`.trim()}>
+  {embedUrl ? (
+    <div class="case-study-wide-video__frame">
+      <iframe
+        src={embedUrl}
+        title={title}
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+      ></iframe>
+    </div>
+  ) : (
+    <video
+      class="case-study-wide-video__player"
+      src={src}
+      poster={poster || undefined}
+      controls
+      playsinline
+      preload="metadata"
+    >
+      Your browser does not support the video tag.
+    </video>
+  )}
+  {caption && <figcaption class="case-study-wide-video__caption">{caption}</figcaption>}
+</figure>

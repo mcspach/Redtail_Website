@@ -1,0 +1,38 @@
+---
+import Button from '../ui/Button.astro';
+import { withBase } from '../../utils/paths';
+
+const navItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Work', href: '/case-studies/' },
+  { label: 'Services', href: '/services/' }
+];
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a href={withBase('/')} class="site-header__brand" aria-label="RedTail home">
+      <img
+        src={withBase('/images/graphics/Logo_Lockup_Red.svg')}
+        alt="RedTail Web Design"
+        class="site-header__logo"
+      />
+    </a>
+
+    <nav class="site-header__nav" aria-label="Main navigation">
+      {navItems.map((item) => (
+        <a href={withBase(item.href)} class="site-header__link">
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="site-header__cta">
+      <Button href="/contact/">Contact Us</Button>
+    </div>
+
+    <button class="site-header__menu-button" type="button" aria-label="Open menu">
+      Menu
+    </button>
+  </div>
+</header>

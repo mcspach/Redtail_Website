@@ -1,0 +1,28 @@
+---
+import { withBase } from '../../utils/paths';
+
+const footerLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'Work', href: '/case-studies/' },
+  { label: 'Services', href: '/services/' },
+  { label: 'Contact', href: '/contact/' },
+];
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <nav class="site-footer__nav" aria-label="Footer navigation">
+      {footerLinks.map((item) => (
+        <a href={withBase(item.href)} class="site-footer__link">
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <p class="site-footer__copyright">
+      © {year} RedTail Web Design. All rights reserved.
+    </p>
+  </div>
+</footer>

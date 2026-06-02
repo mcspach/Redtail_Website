@@ -1,0 +1,81 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+import CaseStudyRow from '../../components/case-studies/CaseStudyRow.astro';
+import CaseStudyImageColumn from '../../components/case-studies/CaseStudyImageColumn.astro';
+import CaseStudyTextColumn from '../../components/case-studies/CaseStudyTextColumn.astro';
+import CaseStudyWideImage from '../../components/case-studies/CaseStudyWideImage.astro';
+import CaseStudyQuote from '../../components/case-studies/CaseStudyQuote.astro';
+import { getCaseStudyBySlug } from '../../data/caseStudies';
+
+const study = getCaseStudyBySlug('distinct-creative-group');
+
+if (!study) {
+  throw new Error('Missing Distinct Creative Group case study metadata.');
+}
+---
+
+<CaseStudyLayout
+  slug={study.slug}
+  title={study.title}
+  description="A case study on the Distinct Creative Group website presentation and messaging work."
+  summary="A cleaner marketing presence designed to communicate confidence, sharpen positioning, and support stronger first impressions."
+  services={study.services}
+  client="Distinct Creative Group"
+  heroImage={study.cardImage}
+  heroAlt={study.cardAlt}
+>
+  <CaseStudyRow>
+    <CaseStudyImageColumn
+      src={study.cardImage}
+      alt={study.cardAlt}
+      caption="Website direction centered on clarity, hierarchy, and premium presentation."
+    />
+    <CaseStudyTextColumn>
+      <h2>Overview</h2>
+      <p>
+        Distinct Creative Group needed a web presence that felt more deliberate
+        and aligned with the quality of its creative work. The emphasis was on
+        clearer structure, stronger messaging, and a more refined visual tone.
+      </p>
+      <h3>Goals</h3>
+      <ul>
+        <li>Present services with more authority and less friction.</li>
+        <li>Strengthen hierarchy so important ideas surfaced faster.</li>
+        <li>Support business development with a cleaner first impression.</li>
+      </ul>
+    </CaseStudyTextColumn>
+  </CaseStudyRow>
+
+  <CaseStudyWideImage
+    src={study.cardImage}
+    alt={study.cardAlt}
+    caption="Layout exploration focused on a clearer path through core offerings and proof points."
+  />
+
+  <CaseStudyQuote author="Distinct Creative Group engagement">
+    The strongest design moves were the simplest ones: tighter structure,
+    clearer story framing, and more confidence in the presentation.
+  </CaseStudyQuote>
+
+  <CaseStudyRow>
+    <CaseStudyTextColumn>
+      <h2>Outcome</h2>
+      <p>
+        The resulting direction gave the brand a more controlled and more
+        premium web presence, creating a foundation that can scale with future
+        content and case-study additions.
+      </p>
+      <h3>Next Steps</h3>
+      <p>
+        This page is intentionally structured to accept additional screenshots,
+        richer narrative content, and future media without needing a schema
+        rewrite.
+      </p>
+    </CaseStudyTextColumn>
+    <CaseStudyImageColumn
+      src={study.cardImage}
+      alt={study.cardAlt}
+      caption="The template supports richer future content while preserving a consistent page rhythm."
+    />
+  </CaseStudyRow>
+</CaseStudyLayout>

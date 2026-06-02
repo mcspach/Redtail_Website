@@ -1,0 +1,105 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+import CaseStudyRow from '../../components/case-studies/CaseStudyRow.astro';
+import CaseStudyImageColumn from '../../components/case-studies/CaseStudyImageColumn.astro';
+import CaseStudyTextColumn from '../../components/case-studies/CaseStudyTextColumn.astro';
+import CaseStudyWideImage from '../../components/case-studies/CaseStudyWideImage.astro';
+import CaseStudyQuote from '../../components/case-studies/CaseStudyQuote.astro';
+import { getCaseStudyBySlug } from '../../data/caseStudies';
+
+const study = getCaseStudyBySlug('bravo-farms');
+
+if (!study) {
+  throw new Error('Missing Bravo Farms case study metadata.');
+}
+---
+
+<CaseStudyLayout
+  slug={study.slug}
+  title={study.title}
+  description="A closer look at the Bravo Farms ecommerce redesign and Shopify experience."
+  summary="A redesign focused on bringing Bravo Farms&apos; destination energy, product variety, and gift-shop personality into a clearer ecommerce experience."
+  services={study.services}
+  client="Bravo Farms"
+  heroImage={study.cardImage}
+  heroAlt={study.cardAlt}
+>
+  <CaseStudyRow>
+    <CaseStudyImageColumn
+      src={study.cardImage}
+      alt={study.cardAlt}
+      caption="Early homepage direction and merchandising mockups."
+    />
+    <CaseStudyTextColumn>
+      <h2>Client Overview</h2>
+      <p>
+        Bravo Farms is a destination business known for gifts, food products,
+        roadside stops, and a playful visual identity. The challenge was to
+        present that breadth in a way that felt intentional online rather than
+        crowded or disconnected.
+      </p>
+      <h3>Project Goals</h3>
+      <ul>
+        <li>Clarify the customer journey from discovery to product browsing.</li>
+        <li>Translate the in-person brand character into ecommerce visuals.</li>
+        <li>Organize merchandising so featured collections felt easier to explore.</li>
+      </ul>
+    </CaseStudyTextColumn>
+  </CaseStudyRow>
+
+  <CaseStudyWideImage
+    src={study.cardImage}
+    alt={study.cardAlt}
+    caption="Product-forward layouts used to reinforce the brand&apos;s colorful, giftable personality."
+  />
+
+  <CaseStudyRow>
+    <CaseStudyTextColumn>
+      <h2>Challenges</h2>
+      <p>
+        The site needed to balance a lot of visual energy with a cleaner
+        shopping experience. Messaging, browsing paths, and merchandising all
+        had to feel more deliberate without losing the warmth of the brand.
+      </p>
+      <h3>Solutions</h3>
+      <ul>
+        <li>Introduced stronger visual hierarchy for homepage and collections.</li>
+        <li>Used larger product imagery to make featured categories easier to scan.</li>
+        <li>Created more consistent spacing and grouping across promotional content.</li>
+      </ul>
+    </CaseStudyTextColumn>
+    <CaseStudyImageColumn
+      src={study.cardImage}
+      alt={study.cardAlt}
+      caption="Collection and merchandising presentation with a cleaner browsing rhythm."
+    />
+  </CaseStudyRow>
+
+  <CaseStudyQuote author="Bravo Farms engagement">
+    The redesign direction focused on making the experience feel more curated
+    and easier to browse while preserving the brand&apos;s playful, destination-led
+    character.
+  </CaseStudyQuote>
+
+  <CaseStudyRow>
+    <CaseStudyImageColumn
+      src={study.cardImage}
+      alt={study.cardAlt}
+      caption="The revised interface emphasized product discovery and stronger page rhythm."
+    />
+    <CaseStudyTextColumn>
+      <h2>Results</h2>
+      <p>
+        The resulting design concept brought more structure to the shopping
+        experience and gave Bravo Farms a more polished visual system for
+        digital storytelling.
+      </p>
+      <h3>Summary</h3>
+      <p>
+        This case study establishes the template for future RedTail case-study
+        pages: clear narrative framing, strong visual presentation, and enough
+        flexibility to expand with additional screenshots and refined copy.
+      </p>
+    </CaseStudyTextColumn>
+  </CaseStudyRow>
+</CaseStudyLayout>

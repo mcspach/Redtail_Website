@@ -1,0 +1,19 @@
+---
+const {
+  as = 'h2',
+  kicker = '',
+  align = 'center',
+  tone = 'default',
+  rules = true,
+  class: className = '',
+} = Astro.props;
+
+const Tag = as;
+---
+
+<div class={`section-heading section-heading--${align} ${tone === 'dark' ? 'section-heading--dark' : ''} ${className}`.trim()}>
+  {kicker && <p class="section-heading__kicker">{kicker}</p>}
+  <Tag class={`section-heading__title ${rules ? '' : 'section-heading__title--plain'}`.trim()}>
+    <slot />
+  </Tag>
+</div>

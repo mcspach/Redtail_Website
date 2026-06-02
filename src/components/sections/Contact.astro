@@ -1,0 +1,108 @@
+---
+import Section from '../ui/Section.astro';
+import Container from '../ui/Container.astro';
+import Heading from '../ui/Heading.astro';
+import Button from '../ui/Button.astro';
+import { withBase } from '../../utils/paths';
+---
+
+<Section class="contact" tone="light">
+  <Container size="wide">
+    <Heading>Get in Touch</Heading>
+
+    <div class="contact__layout">
+      <div class="contact__content">
+        <h3>Let&apos;s build a sharper website for your brand.</h3>
+
+        <p>
+          We help businesses clarify their message and create custom websites that
+          look great, perform better, and drive results. Whether you need a new
+          site, a redesign, or expert guidance, RedTail is here to help.
+        </p>
+
+        <div class="contact__actions">
+          <Button href="/contact/">Start a Project</Button>
+          <Button href="mailto:matthew@redtailwebdesign.com" variant="ghost">
+            Email Matthew
+          </Button>
+        </div>
+
+        <div class="contact__services">
+          <div class="contact__service">
+            <div class="contact__icon-wrap">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 -960 960 960"
+                aria-hidden="true"
+                class="contact__icon"
+              >
+                <path
+                  fill="currentColor"
+                  d="M200-160h560v-80H200v80Zm132-160h296l-23-160H355l-23 160ZM120-80v-160q0-33 23.5-56.5T200-320h52l22-160H160v-80h640v80H686l22 160h52q33 0 56.5 23.5T840-240v160H120Zm151-480-71-320q33 25 68 47t77 22q40 0 73.5-20.5T480-880q28 28 61.5 48.5T615-811q42 0 77-22t68-47l-71 320h-82l39-173-7.5 1q-7.5 1-23.5 1-36 0-70.5-11T480-773q-29 20-62.5 31T349-731q-18 0-26.5-1l-8.5-1 39 173h-82Zm209 80Zm0-80Zm0 400Z"
+                />
+              </svg>
+            </div>
+            <h4>Website Strategy</h4>
+            <p>Clarify your message and build a plan that works.</p>
+          </div>
+
+          <div class="contact__service">
+            <div class="contact__icon-wrap">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 -960 960 960"
+                aria-hidden="true"
+                class="contact__icon"
+              >
+                <path
+                  fill="currentColor"
+                  d="m352-522 86-87-56-57-44 44-56-56 43-44-45-45-87 87 159 158Zm328 329 87-87-45-45-44 43-56-56 43-44-57-56-86 86 158 159Zm24-567 57 57-57-57ZM290-120H120v-170l175-175L80-680l200-200 216 216 151-152q12-12 27-18t31-6q16 0 31 6t27 18l53 54q12 12 18 27t6 31q0 16-6 30.5T816-647L665-495l215 215L680-80 465-295 290-120Zm-90-80h56l392-391-57-57-391 392v56Zm420-419-29-29 57 57-28-28Z"
+                />
+              </svg>
+            </div>
+            <h4>Custom Design</h4>
+            <p>Clean, intentional design that reflects your brand.</p>
+          </div>
+
+          <div class="contact__service">
+            <div class="contact__icon-wrap">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 -960 960 960"
+                aria-hidden="true"
+                class="contact__icon"
+              >
+                <path
+                  fill="currentColor"
+                  d="M400-80v-80h520v80H400Zm40-120q0-81 51-141.5T620-416v-25q0-17 11.5-28.5T660-481q17 0 28.5 11.5T700-441v25q77 14 128.5 74.5T880-200H440Zm105-81h228q-19-27-48.5-43.5T660-341q-36 0-66 16.5T545-281Zm114 0ZM40-440v-440h240v58l280-78 320 100v40q0 50-35 85t-85 35h-80v24q0 25-14.5 45.5T628-541L358-440H40Zm80-80h80v-280h-80v280Zm160 0h64l232-85q11-4 17.5-13.5T600-640h-71l-117 38-24-76 125-42h247q9 0 22.5-6.5T796-742l-238-74-278 76v220Z"
+                />
+              </svg>
+            </div>
+            <h4>Ongoing Support</h4>
+            <p>Guidance, training, and support after launch.</p>
+          </div>
+        </div>
+      </div>
+
+      <aside class="contact__card">
+        <div class="contact__card-image">
+          <img src={withBase('/images/headshot_spach3.webp')} alt="Matthew Spach headshot" />
+        </div>
+
+        <div class="contact__card-body">
+          <h3>Matthew Spach</h3>
+          <p>Creative Director</p>
+
+          <div class="contact__details">
+            <p>
+              <a href="mailto:matthew@redtailwebdesign.com">
+                matthew@redtailwebdesign.com
+              </a>
+            </p>
+            <!-- <p>Clovis, California</p> -->
+          </div>
+        </div>
+      </aside>
+    </div>
+  </Container>
+</Section>

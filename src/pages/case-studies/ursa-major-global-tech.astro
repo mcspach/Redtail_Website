@@ -1,0 +1,82 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+import CaseStudyRow from '../../components/case-studies/CaseStudyRow.astro';
+import CaseStudyImageColumn from '../../components/case-studies/CaseStudyImageColumn.astro';
+import CaseStudyTextColumn from '../../components/case-studies/CaseStudyTextColumn.astro';
+import CaseStudyWideImage from '../../components/case-studies/CaseStudyWideImage.astro';
+import CaseStudyQuote from '../../components/case-studies/CaseStudyQuote.astro';
+import { getCaseStudyBySlug } from '../../data/caseStudies';
+import { withBase } from '../../utils/paths';
+
+const study = getCaseStudyBySlug('ursa-major-global-tech');
+
+if (!study) {
+  throw new Error('Missing Ursa Major Global Tech case study metadata.');
+}
+---
+
+<CaseStudyLayout
+  slug={study.slug}
+  title={study.title}
+  description="A case study on the Ursa Major Global Tech brand and website system."
+  summary="A combined branding and website engagement designed to communicate technical credibility with a sharper and more unified digital identity."
+  services={study.services}
+  client="Ursa Major Global Tech"
+  heroImage={study.cardImage}
+  heroAlt={study.cardAlt}
+>
+  <CaseStudyRow>
+    <CaseStudyImageColumn
+      src={withBase('/images/work/Mockup_Design_Guide_UMGT.webp')}
+      alt="Ursa Major Global Tech design guide mockup with brand system samples"
+      caption="Brand system exploration and early visual identity materials."
+    />
+    <CaseStudyTextColumn>
+      <h2>Overview</h2>
+      <p>
+        Ursa Major Global Tech needed a brand and website system that could
+        speak with more authority, simplify the company narrative, and create a
+        more unified experience across touchpoints.
+      </p>
+      <h3>Goals</h3>
+      <ul>
+        <li>Align brand presentation and web experience into one coherent system.</li>
+        <li>Clarify the message for technical and business audiences alike.</li>
+        <li>Establish a stronger visual foundation for future growth.</li>
+      </ul>
+    </CaseStudyTextColumn>
+  </CaseStudyRow>
+
+  <CaseStudyWideImage
+    src={study.cardImage}
+    alt={study.cardAlt}
+    caption="Website mockups designed to present the company&apos;s capabilities with more confidence and structure."
+  />
+
+  <CaseStudyRow>
+    <CaseStudyTextColumn>
+      <h2>Approach</h2>
+      <p>
+        The work focused on combining strategic messaging, a cleaner brand
+        expression, and more deliberate layout choices so the site could feel
+        both capable and approachable.
+      </p>
+      <h3>Result</h3>
+      <p>
+        The final direction gave the company a stronger visual identity and a
+        website framework that better supports credibility, storytelling, and
+        future expansion.
+      </p>
+    </CaseStudyTextColumn>
+    <CaseStudyImageColumn
+      src={study.cardImage}
+      alt={study.cardAlt}
+      caption="The shared template makes it easy to combine web and brand work in one case study."
+    />
+  </CaseStudyRow>
+
+  <CaseStudyQuote author="Ursa Major Global Tech engagement">
+    This study shows how the template can present both brand-system work and
+    website execution inside one consistent narrative.
+  </CaseStudyQuote>
+</CaseStudyLayout>

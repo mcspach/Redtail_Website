@@ -1,0 +1,39 @@
+---
+import Section from '../ui/Section.astro';
+import Container from '../ui/Container.astro';
+
+const {
+  quote = '"The team listened to my concerns, paid close attention to the experience I was hoping to see, and created something that surpassed my expectations."',
+  author = 'Alicia M.',
+  rating = '★★★★★',
+  titleLineOne = '5 Star',
+  titleLineTwo = 'Raves',
+} = Astro.props;
+---
+
+<Section class="testimonial" size="compact">
+  <Container size="wide">
+    <div class="testimonial__inner">
+      <div class="testimonial__intro">
+        <div class="testimonial__rule" aria-hidden="true"></div>
+        <h2 class="testimonial__title">
+          <span>{titleLineOne}</span>
+          <span>{titleLineTwo}</span>
+        </h2>
+      </div>
+
+      <article class="testimonial__card" aria-label="Client testimonial">
+        <blockquote class="testimonial__quote">
+          {quote}
+        </blockquote>
+
+        <div class="testimonial__meta">
+          <p class="testimonial__author">{author}</p>
+          <p class="testimonial__stars" aria-label="Five star review">
+            {rating}
+          </p>
+        </div>
+      </article>
+    </div>
+  </Container>
+</Section>

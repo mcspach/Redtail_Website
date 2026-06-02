@@ -1,0 +1,47 @@
+---
+import Section from '../ui/Section.astro';
+import Container from '../ui/Container.astro';
+import Heading from '../ui/Heading.astro';
+import { withBase } from '../../utils/paths';
+
+const socialLinks = [
+  {
+    label: 'Instagram',
+    href: 'https://www.instagram.com/redtailwebdesign',
+    icon: withBase('/images/graphics/grey-instagram.webp'),
+  },
+  {
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/company/redtail-web-design',
+    icon: withBase('/images/graphics/grey-linkedin.webp'),
+  },
+  {
+    label: 'Google Maps',
+    href: 'https://business.google.com/v/redtail-web-design/08067669138798226837/807c/_?',
+    icon: withBase('/images/graphics/grey-maps.webp'),
+  },
+];
+---
+
+<Section class="social-proof" tone="dark" size="spacious">
+  <Container>
+    <Heading tone="dark" rules={false}>Connect With Us</Heading>
+    <div class="social-links">
+      {socialLinks.map((item) => (
+        <a href={item.href} class="social-link" aria-label={item.label}>
+          <img
+            src={item.icon}
+            alt=""
+            class="social-link__image"
+            loading="lazy"
+          />
+        </a>
+      ))}
+    </div>
+    <div class="elfsite-wrapper">
+      <!-- Start Elfsite Embed -->
+       <script src="https://elfsightcdn.com/platform.js" async></script>
+       <div class="elfsight-app-8162d046-107a-4f8a-a907-577c6708bee6" data-elfsight-app-lazy></div>
+    </div>
+  </Container>
+</Section>

@@ -1,37 +1,75 @@
 :root {
-  /* Colors */
-  --color-bg: #ffffff;
-  --color-text: #111111;
-  --color-muted: #666666;
-  --color-primary: #000000;
-  --color-secondary: #f5f5f5;
-  --color-border: #dddddd;
+  /* Live-site palette */
+  --white: white;
+  --black: black;
+  --grey: rgba(238, 238, 238, 0.93);
+  --blackish: #101010;
+  --dark-red: #420000;
+  --primary-red: hsla(356.56050955414014, 63.56%, 48.43%, 1);
+  --yellow: hsla(38.54014598540146, 83.03%, 67.65%, 1);
+
+  /* Semantic colors */
+  --color-bg: var(--white);
+  --color-surface: var(--white);
+  --color-surface-muted: var(--grey);
+  --color-surface-dark: var(--black);
+  --color-surface-dark-alt: var(--blackish);
+  --color-text: var(--blackish);
+  --color-text-strong: var(--black);
+  --color-text-muted: rgba(16, 16, 16, 0.72);
+  --color-text-subtle: rgba(16, 16, 16, 0.52);
+  --color-text-on-dark: var(--white);
+  --color-text-on-dark-muted: rgba(255, 255, 255, 0.76);
+  --color-border: rgba(16, 16, 16, 0.14);
+  --color-border-strong: rgba(16, 16, 16, 0.28);
+  --color-rule: rgba(16, 16, 16, 0.28);
+  --color-primary: var(--yellow);
+  --color-secondary: var(--blackish);
+  --color-accent: var(--primary-red);
 
   /* Typography */
-  --font-body: system-ui, sans-serif;
-  --font-heading: system-ui, sans-serif;
+  --font-body:
+    "open-sans-semicondensed-medi", "Arial Narrow", "Helvetica Neue", sans-serif;
+  --font-heading: "cinzel-black", "Times New Roman", serif;
 
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
   --text-base: 1rem;
-  --text-lg: 1.125rem;
-  --text-xl: 1.5rem;
-  --text-2xl: 2rem;
-  --text-3xl: 3rem;
+  --text-md: 1.125rem;
+  --text-lg: 1.375rem;
+  --text-xl: 1.75rem;
+  --text-2xl: clamp(2.15rem, 4vw, 3.05rem);
+  --text-3xl: clamp(3.35rem, 8vw, 5.6rem);
+  --text-4xl: clamp(4.35rem, 10vw, 7.5rem);
 
   /* Spacing */
-  --space-xs: 0.5rem;
+  --space-2xs: 0.375rem;
+  --space-xs: 0.75rem;
   --space-sm: 1rem;
   --space-md: 1.5rem;
-  --space-lg: 3rem;
-  --space-xl: 5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-2xl: 6rem;
+  --space-3xl: 8rem;
+  --section-space-sm: clamp(3rem, 5vw, 4rem);
+  --section-space: clamp(4rem, 7vw, 6rem);
+  --section-space-lg: clamp(5rem, 9vw, 7.5rem);
 
   /* Layout */
-  --container-width: 1200px;
-  --container-padding: 1.5rem;
+  --container-width: 75rem;
+  --container-width-narrow: 60rem;
+  --container-width-wide: 82rem;
+  --container-padding: clamp(1.25rem, 4vw, 2rem);
 
   /* Radius */
-  --radius-sm: 6px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
   --radius-md: 12px;
-  --radius-lg: 24px;
+  --radius-lg: 18px;
+
+  /* Effects */
+  --shadow-card: 0 20px 45px rgba(0, 0, 0, 0.08);
+  --shadow-card-dark: 0 18px 40px rgba(0, 0, 0, 0.22);
+  --transition-fast: 150ms ease;
+  --transition-base: 220ms ease;
 }

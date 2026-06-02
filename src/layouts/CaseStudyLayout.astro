@@ -1,0 +1,77 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+import Container from '../components/ui/Container.astro';
+import Contact from '../components/sections/Contact.astro';
+import CaseStudies from '../components/sections/CaseStudies.astro';
+import SocialProof from '../components/sections/SocialProof.astro';
+
+const {
+  slug = '',
+  title,
+  description = '',
+  summary = '',
+  services = [],
+  client = '',
+  year = '',
+  heroImage = '',
+  heroAlt = '',
+} = Astro.props;
+---
+
+<BaseLayout title={`${title} Case Study | RedTail Web Design`} description={description}>
+  <main class="case-study-page">
+    <section class="case-study-hero">
+      <Container size="wide">
+        <div class="case-study-hero__inner">
+          <div class="case-study-hero__header">
+            <h1 class="case-study-hero__title">{title}</h1>
+            <div class="case-study-hero__rule" aria-hidden="true">
+              <span>Case Study</span>
+            </div>
+          </div>
+
+          <div class="case-study-hero__content">
+            <div class="case-study-hero__details">
+              {(client || year) && (
+                <p class="case-study-hero__meta">
+                  {client && <span>{client}</span>}
+                  {client && year && <span class="case-study-hero__dot">•</span>}
+                  {year && <span>{year}</span>}
+                </p>
+              )}
+
+              {services.length > 0 && (
+                <ul class="case-study-hero__services" aria-label={`${title} services`}>
+                  {services.map((service) => (
+                    <li>{service}</li>
+                  ))}
+                </ul>
+              )}
+
+              {summary && <p class="case-study-hero__summary">{summary}</p>}
+            </div>
+
+            {heroImage && (
+              <figure class="case-study-hero__media">
+                <img src={heroImage} alt={heroAlt} class="case-study-hero__image" />
+              </figure>
+            )}
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section class="case-study-body">
+      <Container size="wide">
+        <div class="case-study-body__inner">
+          <slot />
+        </div>
+      </Container>
+    </section>
+
+    <Contact />
+    <CaseStudies excludeSlug={slug} />
+    <SocialProof />
+  </main>
+</BaseLayout>

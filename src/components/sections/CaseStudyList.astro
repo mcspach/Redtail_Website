@@ -1,0 +1,63 @@
+---
+import Section from '../ui/Section.astro';
+import Container from '../ui/Container.astro';
+import Button from '../ui/Button.astro';
+import { caseStudies, getCaseStudyUrl } from '../../data/caseStudies';
+---
+
+<Section class="portfolio-list" tone="dark">
+  <Container size="wide">
+    <div class="portfolio-list__inner">
+      <div class="portfolio-list__intro">
+        <h2 class="portfolio-list__heading">Case Studies</h2>
+      </div>
+
+      <div class="portfolio-list__items">
+        {caseStudies.map((item, index) => {
+          const href = item.published ? getCaseStudyUrl(item.slug) : undefined;
+          const ctaLabel = item.published ? 'Case Study' : 'Coming Soon';
+
+          return (
+            <article
+              class:list={[
+                'portfolio-list__item',
+                index % 2 === 1 && 'portfolio-list__item--reverse',
+              ]}
+            >
+              <div class="portfolio-list__meta">
+                <h3 class="portfolio-list__title">{item.title}</h3>
+
+                <ul class="portfolio-list__services" aria-label={`${item.title} services`}>
+                  {item.services.map((service) => (
+                    <li>{service}</li>
+                  ))}
+                </ul>
+
+                {item.summary && <p class="portfolio-list__summary">{item.summary}</p>}
+
+                {href ? (
+                  <Button href={href} variant="dark" class="portfolio-list__cta">
+                    {ctaLabel}
+                  </Button>
+                ) : (
+                  <span class="button button--dark portfolio-list__cta">
+                    {ctaLabel}
+                  </span>
+                )}
+              </div>
+
+              <figure class="portfolio-list__media">
+                <img
+                  src={item.cardImage}
+                  alt={item.cardAlt}
+                  class="portfolio-list__image"
+                  loading="lazy"
+                />
+              </figure>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+  </Container>
+</Section>
