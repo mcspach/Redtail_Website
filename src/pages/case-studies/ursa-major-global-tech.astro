@@ -6,7 +6,6 @@ import CaseStudyTextColumn from '../../components/case-studies/CaseStudyTextColu
 import CaseStudyWideImage from '../../components/case-studies/CaseStudyWideImage.astro';
 import CaseStudyQuote from '../../components/case-studies/CaseStudyQuote.astro';
 import { getCaseStudyBySlug } from '../../data/caseStudies';
-import { withBase } from '../../utils/paths';
 
 const study = getCaseStudyBySlug('ursa-major-global-tech');
 
@@ -27,7 +26,7 @@ if (!study) {
 >
   <CaseStudyRow>
     <CaseStudyImageColumn
-      src={withBase('/images/work/Mockup_Design_Guide_UMGT.webp')}
+      src="/images/work/Mockup_Design_Guide_UMGT.webp"
       alt="Ursa Major Global Tech design guide mockup with brand system samples"
       caption="Brand system exploration and early visual identity materials."
     />
