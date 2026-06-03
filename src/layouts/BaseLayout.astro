@@ -5,7 +5,27 @@ import Grain from '../components/sections/Grain.astro';
 import Header from '../components/sections/Header.astro';
 import Footer from '../components/sections/Footer.astro';
 
-const { title = 'Site Title', description = '' } = Astro.props;
+const SITE_NAME = 'RedTail Web Design';
+const DEFAULT_TITLE = 'RedTail Web Design | Digital Solutions in Clovis CA';
+const DEFAULT_DESCRIPTION =
+  'Premium Web and Brand Design for Creatives and Entrepreneurs. Based in Clovis, California, serving clients worldwide.';
+const DEFAULT_SOCIAL_IMAGE_PATH = '/og_image.png';
+const DEFAULT_THEME_COLOR = '#ffffff';
+
+const {
+  title = DEFAULT_TITLE,
+  description = DEFAULT_DESCRIPTION,
+  canonicalPath = '/',
+  socialImagePath = DEFAULT_SOCIAL_IMAGE_PATH,
+  ogType = 'website',
+  noindex = false,
+} = Astro.props;
+
+const siteUrl = Astro.site ?? new URL('https://www.redtailwebdesign.com');
+const resolveAbsoluteUrl = (path = '/') => new URL(path, siteUrl).toString();
+
+const canonicalUrl = resolveAbsoluteUrl(canonicalPath);
+const socialImageUrl = resolveAbsoluteUrl(socialImagePath);
 ---
 
 <!DOCTYPE html>
@@ -13,19 +33,35 @@ const { title = 'Site Title', description = '' } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- TODO SEO -->
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="theme-color" content={DEFAULT_THEME_COLOR} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#420000" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={socialImageUrl} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageUrl} />
 
     <!-- Adobe Fonts (Cinzel and Open Sans Semicondensed) -->
     <link rel="stylesheet" href="https://use.typekit.net/waa4jxr.css">
-
-    <!-- TODO Favicon (optional) -->
-    <!-- <link rel="icon" href="/favicon.ico" /> -->
-
-    <!-- TODO: Open Graph / social meta -->
-
   </head>
 
   <body>

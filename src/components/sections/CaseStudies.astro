@@ -1,10 +1,20 @@
 ---
 import Section from '../ui/Section.astro';
 import Container from '../ui/Container.astro';
-import { featuredCaseStudies, getCaseStudyUrl } from '../../data/caseStudies';
+import { caseStudies, featuredCaseStudies, getCaseStudyUrl } from '../../data/caseStudies';
 
 const { excludeSlug = '' } = Astro.props;
-const caseStudies = featuredCaseStudies.filter((study) => study.slug !== excludeSlug);
+
+const primaryStudies = featuredCaseStudies.filter((study) => study.slug !== excludeSlug);
+
+const fallbackStudies = caseStudies.filter(
+  (study) =>
+    study.published &&
+    study.slug !== excludeSlug &&
+    !primaryStudies.some((primaryStudy) => primaryStudy.slug === study.slug),
+);
+
+const renderedStudies = [...primaryStudies, ...fallbackStudies].slice(0, 3);
 ---
 
 <Section class="case-studies" tone="dark">
@@ -14,7 +24,7 @@ const caseStudies = featuredCaseStudies.filter((study) => study.slug !== exclude
 
       <div class="case-studies__panel">
         <div class="case-studies__grid">
-          {caseStudies.map((study) => (
+          {renderedStudies.map((study) => (
             <a href={getCaseStudyUrl(study.slug)} class="case-study-card">
               <img
                 src={study.cardImage}

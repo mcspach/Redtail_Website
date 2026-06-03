@@ -2,38 +2,43 @@
 import Section from '../ui/Section.astro';
 import Container from '../ui/Container.astro';
 import Heading from '../ui/Heading.astro';
+import { getCaseStudyUrl } from '../../data/caseStudies';
 
 const { showTitle = true } = Astro.props;
 
-const workItems = [
+const workImageItems = [
   {
     image: '/images/work/Mockup_UMGT_Website.png',
     alt: 'Ursa Major Global Tech brand and website mockup',
-    href: '#',
+    href: getCaseStudyUrl('ursa-major-global-tech'),
   },
   {
     image: '/images/work/Mockup_Design_Guide_UMGT.webp',
     alt: 'Ursa Major Global Tech design guide mockup',
-    href: '#',
+    href: getCaseStudyUrl('ursa-major-global-tech'),
   },
   {
     image: '/images/work/Bravo-Mockup.webp',
     alt: 'Bravo Farms website mockup shown on desktop and tablet devices',
-    href: '#',
+    href: getCaseStudyUrl('bravo-farms'),
   },
   {
     image: '/images/work/distinct-homepage-mockup.webp',
     alt: 'Distinct Creative Group website mockup displayed on a tablet',
-    href: '#',
+    href: getCaseStudyUrl('distinct-creative-group'),
   },
   {
     image: '/images/work/dc-marketing.webp',
     alt: 'High quality mickup of clean modern logo design for marketing firm',
-    href: '#',
+    href: getCaseStudyUrl('dc-marketing'),
   },
   {
     image: '/images/work/gasco-mockup.png',
     alt: 'Gasco website mockup displayed across multiple devices',
+  },
+ {
+    image: '/images/work/POLYCHROME-BRAND-MOCKUP-CONCEPT-1.png',
+    alt: 'BRand and ,logo design for Polychrome Donuts',
   },
   {
     image: '/images/work/design-studio.webp',
@@ -41,15 +46,35 @@ const workItems = [
   },
 ];
 
+const workVideoItems = [
+  {
+    src: 'https://res.cloudinary.com/dgqpeqpsf/video/upload/v1780506862/SocialMediaClip8x10_td9qsv.mp4',
+    label: 'Social media showreel clip',
+  },
+  {
+    src: 'https://res.cloudinary.com/dgqpeqpsf/video/upload/v1780506768/distinct_showreel_v7shqm.mp4',
+    label: 'Distinct Creative Group showreel clip',
+    href: getCaseStudyUrl('distinct-creative-group'),
+  },
+  {
+    src: 'https://res.cloudinary.com/dgqpeqpsf/video/upload/v1780506765/bravo_reel_1_ncmrvg.mp4',
+    label: 'Bravo Farms showreel clip',
+    href: getCaseStudyUrl('bravo-farms'),
+  },
+];
+
 const marqueeRows = [
   {
-    items: workItems,
+    items: workImageItems,
+    mediaType: 'image',
     reverse: false,
     ariaLabel: 'Selected work previews',
   },
   {
-    items: workItems,
+    items: workVideoItems,
+    mediaType: 'video',
     reverse: true,
+    ariaLabel: 'Selected work videos',
   },
 ];
 ---
@@ -78,23 +103,52 @@ const marqueeRows = [
         >
           <div class="work__group">
             {row.items.map((item) => (
-              item.href ? (
+              row.mediaType === 'image' ? (
+                item.href ? (
+                  <a href={item.href} class="work__item">
+                    <img
+                      src={item.image}
+                      alt={item.alt}
+                      class="work__image"
+                      loading="lazy"
+                    />
+                  </a>
+                ) : (
+                  <figure class="work__item">
+                    <img
+                      src={item.image}
+                      alt={item.alt}
+                      class="work__image"
+                      loading="lazy"
+                    />
+                  </figure>
+                )
+              ) : item.href ? (
                 <a href={item.href} class="work__item">
-                  <img
-                    src={item.image}
-                    alt={item.alt}
-                    class="work__image"
-                    loading="lazy"
-                  />
+                  <video
+                    class="work__video"
+                    src={item.src}
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    aria-hidden="true"
+                  ></video>
+                  <span class="sr-only">{item.label}</span>
                 </a>
               ) : (
                 <figure class="work__item">
-                  <img
-                    src={item.image}
-                    alt={item.alt}
-                    class="work__image"
-                    loading="lazy"
-                  />
+                  <video
+                    class="work__video"
+                    src={item.src}
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    aria-label={item.label}
+                  ></video>
                 </figure>
               )
             ))}
@@ -102,23 +156,51 @@ const marqueeRows = [
 
           <div class="work__group" aria-hidden="true">
             {row.items.map((item) => (
-              item.href ? (
+              row.mediaType === 'image' ? (
+                item.href ? (
+                  <a href={item.href} class="work__item" tabIndex="-1">
+                    <img
+                      src={item.image}
+                      alt=""
+                      class="work__image"
+                      loading="lazy"
+                    />
+                  </a>
+                ) : (
+                  <figure class="work__item">
+                    <img
+                      src={item.image}
+                      alt=""
+                      class="work__image"
+                      loading="lazy"
+                    />
+                  </figure>
+                )
+              ) : item.href ? (
                 <a href={item.href} class="work__item" tabIndex="-1">
-                  <img
-                    src={item.image}
-                    alt=""
-                    class="work__image"
-                    loading="lazy"
-                  />
+                  <video
+                    class="work__video"
+                    src={item.src}
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    aria-hidden="true"
+                  ></video>
                 </a>
               ) : (
                 <figure class="work__item">
-                  <img
-                    src={item.image}
-                    alt=""
-                    class="work__image"
-                    loading="lazy"
-                  />
+                  <video
+                    class="work__video"
+                    src={item.src}
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    aria-hidden="true"
+                  ></video>
                 </figure>
               )
             ))}

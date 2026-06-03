@@ -63,10 +63,10 @@ export const caseStudies: CaseStudyMeta[] = [
     cardImage: "/images/work/dc-marketing.webp",
     cardAlt:
       "DC Marketing branding mockup with logo studies and campaign artwork",
-    services: ["Logo Design", "Branding"],
+    services: ["Logo Design", "Visual Identity", "Website Audit"],
     summary:
-      "Brand identity work designed to sharpen recognition and create a more cohesive visual system.",
-    published: false,
+      "A brand identity and website audit engagement designed to sharpen distinction, professionalism, and digital performance.",
+    published: true,
   },
   {
     slug: "gasco-home-loans",
@@ -80,7 +80,9 @@ export const caseStudies: CaseStudyMeta[] = [
   },
 ];
 
-export const featuredCaseStudies = caseStudies.filter(study => study.featured);
+export const featuredCaseStudies = caseStudies.filter(
+  (study) => study.featured && study.published,
+);
 
 export const getCaseStudyBySlug = (slug: string) =>
   caseStudies.find(study => study.slug === slug);

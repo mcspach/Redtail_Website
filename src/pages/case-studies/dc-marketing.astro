@@ -1,0 +1,114 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+import CaseStudyRow from '../../components/case-studies/CaseStudyRow.astro';
+import CaseStudyImageColumn from '../../components/case-studies/CaseStudyImageColumn.astro';
+import CaseStudyTextColumn from '../../components/case-studies/CaseStudyTextColumn.astro';
+import CaseStudyWideImage from '../../components/case-studies/CaseStudyWideImage.astro';
+import CaseStudyQuote from '../../components/case-studies/CaseStudyQuote.astro';
+import { getCaseStudyBySlug } from '../../data/caseStudies';
+
+const study = getCaseStudyBySlug('dc-marketing');
+
+if (!study) {
+  throw new Error('Missing DC Marketing case study metadata.');
+}
+---
+
+<CaseStudyLayout
+  slug={study.slug}
+  title="DC Marketing"
+  description="A case study on DC Marketing's logo design, visual identity system, and website audit work."
+  summary="A refined identity package and strategic website audit created to strengthen distinction, professionalism, and consistency across the brand."
+  services={study.services}
+  client="DC Marketing"
+  heroImage="/images/work/dc-marketing.webp"
+  heroAlt="DC Marketing logo on a blue background"
+>
+  <CaseStudyRow>
+    <CaseStudyImageColumn
+      src="/images/work/DC-mockup.webp"
+      alt="DC Marketing brand guidelines, logo system, and campaign mockups"
+      caption=""
+    />
+    <CaseStudyTextColumn>
+      <h2>Client Overview</h2>
+      <p>
+        DC Marketing is a marketing firm that supports small businesses and
+        influencers in Southern California with online content curation and
+        social media management. They wanted a more refined brand identity that
+        could separate them from competitors and communicate professionalism,
+        history, and quality with more confidence.
+      </p>
+
+      <h3>Project Goals</h3>
+      <ul>
+        <li>Design a logo system that reflects the firm&apos;s history and expertise.</li>
+        <li>Create brand guidelines for a more consistent and sophisticated identity.</li>
+        <li>Conduct a website audit to uncover design, usability, and performance improvements.</li>
+      </ul>
+    </CaseStudyTextColumn>
+  </CaseStudyRow>
+
+  <CaseStudyWideImage
+    src="/images/work/DC-Primary-Lockup-Gold.webp"
+    alt="DC Marketing primary logo lockup"
+    caption=""
+  />
+
+  <CaseStudyRow>
+    <CaseStudyTextColumn>
+      <h2>Challenges</h2>
+      <ul>
+        <li>Creating a logo that felt established, refined, and distinct.</li>
+        <li>Developing guidelines that could unify the brand across every touchpoint.</li>
+        <li>Performing a thorough website audit that produced actionable next steps.</li>
+      </ul>
+
+      <h3>Solutions</h3>
+      <p><strong>Branding</strong></p>
+      <ul>
+        <li>Developed a logo inspired by classic sports-mark references while keeping the final identity polished and professional.</li>
+        <li>Built supporting brand guidelines covering color, typography, and usage rules for consistency.</li>
+      </ul>
+      <p><strong>Website Audit</strong></p>
+      <ul>
+        <li>Reviewed design, performance, usability, and SEO to identify priority improvements.</li>
+        <li>Delivered recommendations around speed, navigation, and content effectiveness.</li>
+      </ul>
+    </CaseStudyTextColumn>
+    <CaseStudyImageColumn
+      src="/images/work/DC-Brand-Guide.png"
+      alt="DC Marketing single page brand guide"
+      caption=""
+    />
+  </CaseStudyRow>
+
+  <CaseStudyQuote author="DC Marketing engagement">
+    The goal was to create a brand package that felt more established and
+    differentiated while giving the team a clearer foundation for consistent
+    digital presentation.
+  </CaseStudyQuote>
+
+  <CaseStudyRow>
+    <CaseStudyImageColumn
+      src="/images/work/DC-mockup3.png"
+      alt="DC Marketing visual identity presentation and collateral mockups"
+      caption=""
+    />
+    <CaseStudyTextColumn>
+      <h2>Results</h2>
+      <ul>
+        <li>The new logo and identity package gave DC Marketing a more polished and differentiated brand presence.</li>
+        <li>The website audit produced practical improvements to strengthen performance and usability.</li>
+        <li>The completed guidelines created a more cohesive visual system across future materials.</li>
+      </ul>
+
+      <h3>Summary</h3>
+      <p>
+        This project shows RedTail&apos;s ability to deliver strategic identity work
+        alongside actionable website guidance. The result is a stronger brand
+        foundation and a clearer path toward a more effective online presence.
+      </p>
+    </CaseStudyTextColumn>
+  </CaseStudyRow>
+</CaseStudyLayout>
