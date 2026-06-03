@@ -4,6 +4,7 @@ import CaseStudyRow from '../../components/case-studies/CaseStudyRow.astro';
 import CaseStudyImageColumn from '../../components/case-studies/CaseStudyImageColumn.astro';
 import CaseStudyTextColumn from '../../components/case-studies/CaseStudyTextColumn.astro';
 import CaseStudyWideImage from '../../components/case-studies/CaseStudyWideImage.astro';
+import CaseStudyWideVideo from '../../components/case-studies/CaseStudyWideVideo.astro';
 import CaseStudyQuote from '../../components/case-studies/CaseStudyQuote.astro';
 import { getCaseStudyBySlug } from '../../data/caseStudies';
 
@@ -26,9 +27,9 @@ if (!study) {
 >
   <CaseStudyRow>
     <CaseStudyImageColumn
-      src={study.cardImage}
-      alt={study.cardAlt}
-      caption="Early homepage direction and merchandising mockups."
+      src="/images/work/bravo-mockup3.png"
+      alt="Mockups of Bravo Farms homepage design"
+      caption=""
     />
     <CaseStudyTextColumn>
       <h2>Client Overview</h2>
@@ -47,10 +48,14 @@ if (!study) {
     </CaseStudyTextColumn>
   </CaseStudyRow>
 
-  <CaseStudyWideImage
-    src={study.cardImage}
-    alt={study.cardAlt}
-    caption="Product-forward layouts used to reinforce the brand&apos;s colorful, giftable personality."
+  <CaseStudyWideVideo
+    src="https://res.cloudinary.com/dgqpeqpsf/video/upload/v1780506765/bravo_reel_1_ncmrvg.mp4"
+    title="Bravo Farms case study reel of web design and branding work"
+    autoplay={true}
+    loop={true}
+    muted={true}
+    controls={false}
+    caption=""
   />
 
   <CaseStudyRow>
@@ -69,9 +74,9 @@ if (!study) {
       </ul>
     </CaseStudyTextColumn>
     <CaseStudyImageColumn
-      src={study.cardImage}
-      alt={study.cardAlt}
-      caption="Collection and merchandising presentation with a cleaner browsing rhythm."
+      src="/images/work/bravo-mockup4.png"
+      alt="Page design of Bravo Farms ecommerce Shopify Collections"
+      caption=""
     />
   </CaseStudyRow>
 
@@ -83,9 +88,9 @@ if (!study) {
 
   <CaseStudyRow>
     <CaseStudyImageColumn
-      src={study.cardImage}
-      alt={study.cardAlt}
-      caption="The revised interface emphasized product discovery and stronger page rhythm."
+      src="/images/work/bravo-meta.png"
+      alt="Bravo Farms exterior photo, meta image"
+      caption=""
     />
     <CaseStudyTextColumn>
       <h2>Results</h2>

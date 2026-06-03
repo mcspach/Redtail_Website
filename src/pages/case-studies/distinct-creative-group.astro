@@ -3,7 +3,7 @@ import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
 import CaseStudyRow from '../../components/case-studies/CaseStudyRow.astro';
 import CaseStudyImageColumn from '../../components/case-studies/CaseStudyImageColumn.astro';
 import CaseStudyTextColumn from '../../components/case-studies/CaseStudyTextColumn.astro';
-import CaseStudyWideImage from '../../components/case-studies/CaseStudyWideImage.astro';
+import CaseStudyWideVideo from '../../components/case-studies/CaseStudyWideVideo.astro';
 import CaseStudyQuote from '../../components/case-studies/CaseStudyQuote.astro';
 import { getCaseStudyBySlug } from '../../data/caseStudies';
 
@@ -26,9 +26,9 @@ if (!study) {
 >
   <CaseStudyRow>
     <CaseStudyImageColumn
-      src={study.cardImage}
-      alt={study.cardAlt}
-      caption="Website direction centered on clarity, hierarchy, and premium presentation."
+      src="/images/work/distinct-creative-group.png"
+      alt="Distinct Creative Group website meta image with text and rocket"
+      caption=""
     />
     <CaseStudyTextColumn>
       <h2>Overview</h2>
@@ -46,10 +46,14 @@ if (!study) {
     </CaseStudyTextColumn>
   </CaseStudyRow>
 
-  <CaseStudyWideImage
-    src={study.cardImage}
-    alt={study.cardAlt}
-    caption="Layout exploration focused on a clearer path through core offerings and proof points."
+    <CaseStudyWideVideo
+    src="https://res.cloudinary.com/dgqpeqpsf/video/upload/v1780506768/distinct_showreel_v7shqm.mp4"
+    title="Distinct Creative Group homepage showreel"
+    autoplay={true}
+    loop={true}
+    muted={true}
+    controls={false}
+    caption=""
   />
 
   <CaseStudyQuote author="Distinct Creative Group engagement">
@@ -73,9 +77,9 @@ if (!study) {
       </p>
     </CaseStudyTextColumn>
     <CaseStudyImageColumn
-      src={study.cardImage}
+      src="/images/work/distinct-about-demo.png"
       alt={study.cardAlt}
-      caption="The template supports richer future content while preserving a consistent page rhythm."
+      caption=""
     />
   </CaseStudyRow>
 </CaseStudyLayout>

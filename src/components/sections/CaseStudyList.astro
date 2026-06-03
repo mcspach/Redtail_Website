@@ -15,7 +15,6 @@ import { caseStudies, getCaseStudyUrl } from '../../data/caseStudies';
       <div class="portfolio-list__items">
         {caseStudies.map((item, index) => {
           const href = item.published ? getCaseStudyUrl(item.slug) : undefined;
-          const ctaLabel = item.published ? 'Case Study' : 'Coming Soon';
 
           return (
             <article
@@ -35,14 +34,10 @@ import { caseStudies, getCaseStudyUrl } from '../../data/caseStudies';
 
                 {item.summary && <p class="portfolio-list__summary">{item.summary}</p>}
 
-                {href ? (
+                {href && (
                   <Button href={href} variant="dark" class="portfolio-list__cta">
-                    {ctaLabel}
+                    Case Study
                   </Button>
-                ) : (
-                  <span class="button button--dark portfolio-list__cta">
-                    {ctaLabel}
-                  </span>
                 )}
               </div>
 

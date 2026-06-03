@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+import HeroMd from '../components/sections/HeroMd.astro';
+import ContactForm from '../components/sections/ContactForm.astro';
+import SocialProof from '../components/sections/SocialProof.astro';
+---
+
+<BaseLayout
+  title="RedTail Web Design | Contact Us"
+  description="Have a project in mind? Let’s talk. Start a project with RedTail Web Design and share your goals, timeline, and project details."
+  canonicalPath="/contact/"
+  socialImagePath="/og_image.png"
+>
+  <main>
+    <HeroMd
+      hiddenH1="Contact RedTail Web Design"
+      eyebrow="Contact"
+      head="Start Your Project"
+      subhead="Tell us about your business, goals, and timeline. We&apos;ll follow up with next steps."
+    />
+    <ContactForm />
+    <SocialProof />
+  </main>
+</BaseLayout>

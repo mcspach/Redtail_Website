@@ -1,14 +1,19 @@
 ---
 import Button from '../ui/Button.astro';
 
-const navItems = [
+const desktopNavItems = [
   { label: 'Home', href: '/' },
   { label: 'Work', href: '/case-studies/' },
-  { label: 'Services', href: '/services/' }
+  { label: 'Services', href: '/services/' },
+];
+
+const mobileNavItems = [
+  ...desktopNavItems,
+  { label: 'Contact', href: '/contact/' },
 ];
 ---
 
-<header class="site-header">
+<header class="site-header" data-mobile-menu-root>
   <div class="container site-header__inner">
     <a href="/" class="site-header__brand" aria-label="RedTail home">
       <img
@@ -19,7 +24,7 @@ const navItems = [
     </a>
 
     <nav class="site-header__nav" aria-label="Main navigation">
-      {navItems.map((item) => (
+      {desktopNavItems.map((item) => (
         <a href={item.href} class="site-header__link">
           {item.label}
         </a>
@@ -30,8 +35,88 @@ const navItems = [
       <Button href="/contact/">Contact Us</Button>
     </div>
 
-    <button class="site-header__menu-button" type="button" aria-label="Open menu">
+    <button
+      class="site-header__menu-button"
+      type="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="site-mobile-menu"
+      data-mobile-menu-button
+    >
       Menu
     </button>
   </div>
+
+  <div
+    id="site-mobile-menu"
+    class="site-header__mobile-menu"
+    hidden
+    data-mobile-menu-panel
+  >
+    <nav class="site-header__mobile-nav" aria-label="Mobile navigation">
+      {mobileNavItems.map((item) => (
+        <a href={item.href} class="site-header__mobile-link">
+          {item.label}
+        </a>
+      ))}
+    </nav>
+  </div>
 </header>
+
+<script>
+  const mobileMenuRoots = document.querySelectorAll('[data-mobile-menu-root]');
+
+  for (const root of mobileMenuRoots) {
+    const button = root.querySelector('[data-mobile-menu-button]');
+    const panel = root.querySelector('[data-mobile-menu-panel]');
+    const links = root.querySelectorAll('.site-header__mobile-link');
+
+    if (!(button instanceof HTMLButtonElement) || !(panel instanceof HTMLElement)) {
+      continue;
+    }
+
+    const closeMenu = () => {
+      button.setAttribute('aria-expanded', 'false');
+      button.setAttribute('aria-label', 'Open menu');
+      button.textContent = 'Menu';
+      panel.hidden = true;
+      document.body.style.overflow = '';
+    };
+
+    const openMenu = () => {
+      button.setAttribute('aria-expanded', 'true');
+      button.setAttribute('aria-label', 'Close menu');
+      button.textContent = 'Close';
+      panel.hidden = false;
+      document.body.style.overflow = 'hidden';
+    };
+
+    button.addEventListener('click', () => {
+      const isOpen = button.getAttribute('aria-expanded') === 'true';
+
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    for (const link of links) {
+      link.addEventListener('click', () => {
+        closeMenu();
+      });
+    }
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') {
+        closeMenu();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 900) {
+        closeMenu();
+      }
+    });
+  }
+</script>

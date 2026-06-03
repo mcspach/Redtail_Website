@@ -5,6 +5,10 @@ const {
   title = 'Case study video',
   poster = '',
   caption = '',
+  autoplay = false,
+  loop = false,
+  muted = false,
+  controls = true,
   class: className = '',
 } = Astro.props;
 ---
@@ -25,7 +29,10 @@ const {
       class="case-study-wide-video__player"
       src={src}
       poster={poster || undefined}
-      controls
+      autoplay={autoplay}
+      loop={loop}
+      muted={muted}
+      controls={controls}
       playsinline
       preload="metadata"
     >
