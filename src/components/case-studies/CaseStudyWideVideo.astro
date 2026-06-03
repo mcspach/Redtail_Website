@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../../utils/paths';
+
 const {
   src = '',
   embedUrl = '',
@@ -27,8 +29,8 @@ const {
   ) : (
     <video
       class="case-study-wide-video__player"
-      src={src}
-      poster={poster || undefined}
+      src={withBase(src)}
+      poster={poster ? withBase(poster) : undefined}
       autoplay={autoplay}
       loop={loop}
       muted={muted}

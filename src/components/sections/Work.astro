@@ -3,45 +3,46 @@ import Section from '../ui/Section.astro';
 import Container from '../ui/Container.astro';
 import Heading from '../ui/Heading.astro';
 import { getCaseStudyUrl } from '../../data/caseStudies';
+import { withBase } from '../../utils/paths';
 
 const { showTitle = true } = Astro.props;
 
 const workImageItems = [
   {
-    image: '/images/work/Mockup_UMGT_Website.png',
+    image: withBase('/images/work/Mockup_UMGT_Website.png'),
     alt: 'Ursa Major Global Tech brand and website mockup',
     href: getCaseStudyUrl('ursa-major-global-tech'),
   },
   {
-    image: '/images/work/Mockup_Design_Guide_UMGT.webp',
+    image: withBase('/images/work/Mockup_Design_Guide_UMGT.webp'),
     alt: 'Ursa Major Global Tech design guide mockup',
     href: getCaseStudyUrl('ursa-major-global-tech'),
   },
   {
-    image: '/images/work/Bravo-Mockup.webp',
+    image: withBase('/images/work/Bravo-Mockup.webp'),
     alt: 'Bravo Farms website mockup shown on desktop and tablet devices',
     href: getCaseStudyUrl('bravo-farms'),
   },
   {
-    image: '/images/work/distinct-homepage-mockup.webp',
+    image: withBase('/images/work/distinct-homepage-mockup.webp'),
     alt: 'Distinct Creative Group website mockup displayed on a tablet',
     href: getCaseStudyUrl('distinct-creative-group'),
   },
   {
-    image: '/images/work/dc-marketing.webp',
+    image: withBase('/images/work/dc-marketing.webp'),
     alt: 'High quality mickup of clean modern logo design for marketing firm',
     href: getCaseStudyUrl('dc-marketing'),
   },
   {
-    image: '/images/work/gasco-mockup.png',
+    image: withBase('/images/work/gasco-mockup.png'),
     alt: 'Gasco website mockup displayed across multiple devices',
   },
  {
-    image: '/images/work/POLYCHROME-BRAND-MOCKUP-CONCEPT-1.png',
+    image: withBase('/images/work/POLYCHROME-BRAND-MOCKUP-CONCEPT-1.png'),
     alt: 'BRand and ,logo design for Polychrome Donuts',
   },
   {
-    image: '/images/work/design-studio.webp',
+    image: withBase('/images/work/design-studio.webp'),
     alt: 'University website design Spring Arbor, through Modern Campus',
   },
 ];

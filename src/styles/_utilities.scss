@@ -90,7 +90,7 @@ div.halfy {
   position: fixed;
   inset: 0;
   z-index: 100;
-  background-image: url("/images/grain.gif");
+  background-image: url("../images/grain.gif");
   background-position: 0 0;
   background-size: auto;
   opacity: 0.05;
@@ -442,7 +442,7 @@ select:focus {
   border-radius: 14px;
   background:
     linear-gradient(rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.92)),
-    url("/images/graphics/grey-graphic-thinline.png");
+    url("../images/graphics/grey-graphic-thinline.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -707,7 +707,7 @@ select:focus {
 .testimonial {
   overflow: hidden;
   background-color: var(--yellow);
-  background-image: url("/images/graphics/Icon_quote.svg");
+  background-image: url("../images/graphics/Icon_quote.svg");
   background-repeat: no-repeat;
   background-position: left center;
   background-size: auto 100%;
@@ -830,7 +830,7 @@ select:focus {
   overflow: hidden;
   padding-block: clamp(4rem, 8vw, 6.5rem);
   background-color: var(--color-bg);
-  background-image: url("/images/graphics/redtail-graphic_gradientgrey_opacity60B_1.png");
+  background-image: url("../images/graphics/redtail-graphic_gradientgrey_opacity60B_1.png");
   background-position: center bottom;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -921,7 +921,7 @@ select:focus {
   min-height: clamp(32rem, 78vh, 52rem);
   padding-block: clamp(4rem, 8vw, 6.5rem) var(--section-space);
   background-color: var(--color-bg);
-  background-image: url("/images/graphics/grey-graphic-thinline.png");
+  background-image: url("../images/graphics/grey-graphic-thinline.png");
   background-position: -36vw center;
   background-repeat: no-repeat;
   background-size: auto 130%;
@@ -1035,7 +1035,7 @@ select:focus {
   padding-block: clamp(2.5rem, 5vw, 3.75rem) clamp(1.5rem, 3.5vw, 2.5rem);
   border-bottom: 1px solid rgba(16, 16, 16, 0.08);
   background-color: var(--color-bg);
-  background-image: url("/images/graphics/grey-graphic-thinline.png");
+  background-image: url("../images/graphics/grey-graphic-thinline.png");
   background-position: -115% center;
   background-repeat: no-repeat;
   background-size: 75% auto;
@@ -1122,7 +1122,7 @@ select:focus {
     padding: 0 1.5rem 2rem;
     background:
       linear-gradient(rgba(250, 246, 236, 0.98), rgba(250, 246, 236, 0.98)),
-      url("/images/graphics/grey-graphic-thinline.png");
+      url("../images/graphics/grey-graphic-thinline.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -1289,7 +1289,7 @@ select:focus {
 
   .features {
     background-color: var(--color-bg);
-    background-image: url("/images/graphics/redtail-graphic_gradientgrey_opacity60B_1.png");
+    background-image: url("../images/graphics/redtail-graphic_gradientgrey_opacity60B_1.png");
     background-position: center 50%;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -1564,7 +1564,7 @@ select:focus {
   border-bottom: 1px solid rgba(16, 16, 16, 0.08);
   background:
     linear-gradient(rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.94)),
-    url("/images/graphics/grey-graphic-thinline.png");
+    url("../images/graphics/grey-graphic-thinline.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1856,7 +1856,7 @@ select:focus {
   z-index: 1;
   height: 100%;
   width: 100%;
-  background-image: url("/images/graphics/red-graphic-thinline.svg");
+  background-image: url("../images/graphics/red-graphic-thinline.svg");
   background-position: -60% center;
   background-repeat: no-repeat;
   background-size: 300px 300px;

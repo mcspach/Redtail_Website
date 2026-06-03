@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../../utils/paths';
+
 const {
   href = '#',
   variant = 'primary',
@@ -8,10 +10,11 @@ const {
 } = Astro.props;
 
 const computedRel = rel ?? (target === '_blank' ? 'noreferrer' : undefined);
+const computedHref = withBase(href);
 ---
 
 <a
-  href={href}
+  href={computedHref}
   target={target}
   rel={computedRel}
   class={`button button--${variant} ${className}`.trim()}

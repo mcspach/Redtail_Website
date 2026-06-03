@@ -5,6 +5,7 @@ import Container from '../components/ui/Container.astro';
 import Contact from '../components/sections/Contact.astro';
 import CaseStudies from '../components/sections/CaseStudies.astro';
 import SocialProof from '../components/sections/SocialProof.astro';
+import { withBase } from '../utils/paths';
 
 const {
   slug = '',
@@ -60,7 +61,7 @@ const {
 
             {heroImage && (
               <figure class="case-study-hero__media">
-                <img src={heroImage} alt={heroAlt} class="case-study-hero__image" />
+                <img src={withBase(heroImage)} alt={heroAlt} class="case-study-hero__image" />
               </figure>
             )}
           </div>

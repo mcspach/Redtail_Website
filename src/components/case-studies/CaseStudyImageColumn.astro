@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../../utils/paths';
+
 const {
   src,
   alt,
@@ -10,6 +12,6 @@ const captionText = caption?.trim();
 ---
 
 <figure class={`case-study-image-column ${className}`.trim()}>
-  <img src={src} alt={alt} class="case-study-image-column__image" loading="lazy" />
+  <img src={withBase(src)} alt={alt} class="case-study-image-column__image" loading="lazy" />
   {captionText && <figcaption class="case-study-image-column__caption">{captionText}</figcaption>}
 </figure>

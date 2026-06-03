@@ -1,5 +1,6 @@
 ---
 import Button from '../ui/Button.astro';
+import { withBase } from '../../utils/paths';
 
 const desktopNavItems = [
   { label: 'Home', href: '/' },
@@ -15,9 +16,9 @@ const mobileNavItems = [
 
 <header class="site-header" data-mobile-menu-root>
   <div class="container site-header__inner">
-    <a href="/" class="site-header__brand" aria-label="RedTail home">
+    <a href={withBase('/')} class="site-header__brand" aria-label="RedTail home">
       <img
-        src="/images/graphics/Logo_Lockup_Red.svg"
+        src={withBase('/images/graphics/Logo_Lockup_Red.svg')}
         alt="RedTail Web Design"
         class="site-header__logo"
       />
@@ -25,7 +26,7 @@ const mobileNavItems = [
 
     <nav class="site-header__nav" aria-label="Main navigation">
       {desktopNavItems.map((item) => (
-        <a href={item.href} class="site-header__link">
+        <a href={withBase(item.href)} class="site-header__link">
           {item.label}
         </a>
       ))}
@@ -55,7 +56,7 @@ const mobileNavItems = [
   >
     <nav class="site-header__mobile-nav" aria-label="Mobile navigation">
       {mobileNavItems.map((item) => (
-        <a href={item.href} class="site-header__mobile-link">
+        <a href={withBase(item.href)} class="site-header__mobile-link">
           {item.label}
         </a>
       ))}

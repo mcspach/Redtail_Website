@@ -2,22 +2,23 @@
 import Section from '../ui/Section.astro';
 import Container from '../ui/Container.astro';
 import Heading from '../ui/Heading.astro';
+import { withBase } from '../../utils/paths';
 
 const socialLinks = [
   {
     label: 'Instagram',
     href: 'https://www.instagram.com/redtailwebdesign',
-    icon: '/images/graphics/grey-instagram.webp',
+    icon: withBase('/images/graphics/grey-instagram.webp'),
   },
   {
     label: 'LinkedIn',
     href: 'https://www.linkedin.com/company/redtail-web-design',
-    icon: '/images/graphics/grey-linkedin.webp',
+    icon: withBase('/images/graphics/grey-linkedin.webp'),
   },
   {
     label: 'Google Maps',
     href: 'https://business.google.com/v/redtail-web-design/08067669138798226837/807c/_?',
-    icon: '/images/graphics/grey-maps.webp',
+    icon: withBase('/images/graphics/grey-maps.webp'),
   },
 ];
 ---

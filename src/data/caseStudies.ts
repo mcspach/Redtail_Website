@@ -1,3 +1,5 @@
+import { withBase } from "../utils/paths";
+
 export type CaseStudyMeta = {
   slug: string;
   title: string;
@@ -9,13 +11,13 @@ export type CaseStudyMeta = {
   published?: boolean;
 };
 
-export const getCaseStudyUrl = (slug: string) => `/case-studies/${slug}/`;
+export const getCaseStudyUrl = (slug: string) => withBase(`/case-studies/${slug}/`);
 
 export const caseStudies: CaseStudyMeta[] = [
   {
     slug: "distinct-creative-group",
     title: "Distinct Creative Group",
-    cardImage: "/images/work/distinct-homepage-mockup.webp",
+    cardImage: withBase("/images/work/distinct-homepage-mockup.webp"),
     cardAlt:
       "Distinct Creative Group website mockup displayed on a tablet and mobile device",
     services: ["Web Design", "Web Development"],
@@ -27,7 +29,7 @@ export const caseStudies: CaseStudyMeta[] = [
   {
     slug: "bravo-farms",
     title: "Bravo Farms",
-    cardImage: "/images/work/Bravo-Mockup.webp",
+    cardImage: withBase("/images/work/Bravo-Mockup.webp"),
     cardAlt: "Bravo Farms website mockup shown on desktop and tablet devices",
     services: ["Web Design", "Shopify Development"],
     summary:
@@ -38,7 +40,7 @@ export const caseStudies: CaseStudyMeta[] = [
   {
     slug: "ursa-major-global-tech",
     title: "Ursa Major Global Tech",
-    cardImage: "/images/work/Mockup_UMGT_Website.png",
+    cardImage: withBase("/images/work/Mockup_UMGT_Website.png"),
     cardAlt: "Ursa Major Global Tech brand and website mockup",
     services: ["Logo Design", "Branding", "Web Design", "Web Development"],
     summary:
@@ -49,7 +51,7 @@ export const caseStudies: CaseStudyMeta[] = [
   {
     slug: "modern-campus-design-studio",
     title: "Modern Campus Design Studio",
-    cardImage: "/images/work/design-studio.webp",
+    cardImage: withBase("/images/work/design-studio.webp"),
     cardAlt:
       "University website design and development mockup for Modern Campus Design Studio",
     services: ["Web Design", "Web Development"],
@@ -60,7 +62,7 @@ export const caseStudies: CaseStudyMeta[] = [
   {
     slug: "dc-marketing",
     title: "DC Marketing",
-    cardImage: "/images/work/dc-marketing.webp",
+    cardImage: withBase("/images/work/dc-marketing.webp"),
     cardAlt:
       "DC Marketing branding mockup with logo studies and campaign artwork",
     services: ["Logo Design", "Visual Identity", "Website Audit"],
@@ -71,7 +73,7 @@ export const caseStudies: CaseStudyMeta[] = [
   {
     slug: "gasco-home-loans",
     title: "Gasco Home Loans",
-    cardImage: "/images/work/gasco-mockup.png",
+    cardImage: withBase("/images/work/gasco-mockup.png"),
     cardAlt: "Gasco Home Loans website mockup displayed on tablet and phone",
     services: ["Web Design", "Web Development"],
     summary:
