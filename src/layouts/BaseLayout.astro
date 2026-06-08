@@ -59,16 +59,51 @@ const socialImageUrl = toAbsoluteUrl(socialImagePath, siteUrl);
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImageUrl} />
 
+    <script is:inline>
+      (() => {
+        const key = 'redtail:hasSeenIntro';
+
+        try {
+          if (window.sessionStorage.getItem(key) !== 'true') {
+            document.documentElement.classList.add('rt-intro-boot');
+          }
+        } catch {
+          document.documentElement.classList.add('rt-intro-boot');
+        }
+      })();
+    </script>
+
     <!-- Adobe Fonts (Cinzel and Open Sans Semicondensed) -->
     <link rel="stylesheet" href="https://use.typekit.net/waa4jxr.css">
   </head>
 
   <body>
-  <div id="site-root">
-  <Grain />
-  <Header />
-  <slot />
-  <Footer />
-</div>
+    <div
+      class="site-transition"
+      aria-hidden="true"
+      data-site-transition
+    >
+      <img
+        src={withBase('/images/graphics/Logo_Lockup_Red.svg')}
+        alt=""
+        class="site-transition__logo"
+        width="280"
+        height="84"
+        loading="eager"
+        decoding="async"
+      />
+    </div>
+
+    <div id="site-root">
+      <Grain />
+      <Header />
+      <slot />
+      <Footer />
+    </div>
+
+    <script>
+      import '../scripts/animations.js';
+      import '../scripts/animations2.js';
+    </script>
 </body>
 </html>

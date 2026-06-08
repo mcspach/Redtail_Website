@@ -4,6 +4,12 @@
 
 :root {
   color-scheme: light;
+  --page-transition-duration: 750ms;
+  --page-transition-ease: cubic-bezier(0.2, 0.75, 0.2, 1);
+  --page-intro-min-hold: 550ms;
+  --page-intro-max-wait: 2200ms;
+  --page-intro-fade-duration: 280ms;
+  --page-intro-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 #site-root {
@@ -13,6 +19,81 @@
 
 body.nav-open {
   overflow: hidden;
+}
+
+body.is-transitioning {
+  overflow: hidden;
+}
+
+body.is-initial-loading {
+  overflow: hidden;
+}
+
+.site-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate3d(0, 0, 0) scale(1.02);
+  background: #000;
+  transition:
+    opacity var(--page-transition-duration) var(--page-transition-ease),
+    transform var(--page-transition-duration) var(--page-transition-ease),
+    visibility 0ms linear var(--page-transition-duration);
+}
+
+html.rt-intro-boot .site-transition {
+  opacity: 1;
+  visibility: visible;
+  transform: translate3d(0, 0, 0) scale(1);
+  transition: none;
+}
+
+.site-transition__logo {
+  width: clamp(180px, 24vw, 320px);
+  height: auto;
+  max-width: 80vw;
+}
+
+body.is-initial-loading .site-transition {
+  opacity: 1;
+  visibility: visible;
+  transform: translate3d(0, 0, 0) scale(1);
+  transition:
+    opacity var(--page-intro-fade-duration) var(--page-intro-ease),
+    transform var(--page-intro-fade-duration) var(--page-intro-ease),
+    visibility 0ms;
+}
+
+body.is-initial-loading.is-initial-loading-exit .site-transition {
+  opacity: 0;
+  visibility: hidden;
+  transform: translate3d(0, -14vh, 0) scale(0.995);
+  transition:
+    opacity var(--page-intro-fade-duration) var(--page-intro-ease),
+    transform var(--page-intro-fade-duration) var(--page-intro-ease),
+    visibility 0ms linear var(--page-intro-fade-duration);
+}
+
+body.is-transitioning .site-transition {
+  opacity: 1;
+  visibility: visible;
+  transform: translate3d(0, 0, 0) scale(1);
+  transition:
+    opacity var(--page-transition-duration) var(--page-transition-ease),
+    transform var(--page-transition-duration) var(--page-transition-ease),
+    visibility 0ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-transition {
+    transition: none;
+    transform: none;
+  }
 }
 
 main,
