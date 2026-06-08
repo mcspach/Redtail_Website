@@ -132,7 +132,7 @@ const buildHeroRevealTimeline = elements => {
 
 const setupRevealForNode = node => {
   const split = new SplitType(node, {
-    types: "lines,chars",
+    types: "lines,words,chars",
     tagName: "span",
   });
 
@@ -141,6 +141,11 @@ const setupRevealForNode = node => {
   split.lines.forEach(line => {
     line.style.display = "block";
     line.style.overflow = "hidden";
+  });
+
+  split.words.forEach(word => {
+    // Keep words intact so character spans cannot wrap across lines.
+    word.style.whiteSpace = "nowrap";
   });
 
   gsap.set(split.lines, revealStates.lines);
