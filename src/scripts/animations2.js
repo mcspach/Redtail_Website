@@ -37,6 +37,32 @@ const heroMdReveal = [
 const activeSplits = [];
 const activeTriggers = [];
 
+// While the transition curtain covers the page, hold entrance animations so
+// they play as the curtain lifts instead of finishing unseen behind it.
+// animations.js dispatches this event the moment the curtain starts to lift.
+const OVERLAY_REVEAL_EVENT = "redtail:overlay-reveal";
+
+// Beat between the curtain starting to lift and the hero animating in,
+// so the hero starts roughly as the curtain clears its area.
+const HERO_REVEAL_DELAY = 0.35;
+
+const overlayIsCovering = () =>
+  document.documentElement.classList.contains("rt-intro-boot") ||
+  document.documentElement.classList.contains("rt-nav-boot") ||
+  (document.body.classList.contains("is-initial-loading") &&
+    !document.body.classList.contains("is-initial-loading-exit"));
+
+const whenOverlayRevealed = callback => {
+  if (!overlayIsCovering()) {
+    callback();
+    return;
+  }
+
+  document.addEventListener(OVERLAY_REVEAL_EVENT, () => callback(), {
+    once: true,
+  });
+};
+
 const revealStates = {
   lines: {
     yPercent: 100,
@@ -164,7 +190,7 @@ const setupRevealForNode = node => {
   activeTriggers.push(trigger);
 
   if (trigger.isActive) {
-    timeline.restart(true);
+    whenOverlayRevealed(() => timeline.restart(true));
   }
 };
 
@@ -185,7 +211,7 @@ const setupFadeUpForNode = node => {
   activeTriggers.push(trigger);
 
   if (trigger.isActive) {
-    timeline.restart(true);
+    whenOverlayRevealed(() => timeline.restart(true));
   }
 };
 
@@ -206,7 +232,11 @@ const setupHeroReveal = selectors => {
     transformOrigin: "center top",
   });
 
-  buildHeroRevealTimeline(elements).play(0);
+  whenOverlayRevealed(() =>
+    gsap.delayedCall(HERO_REVEAL_DELAY, () =>
+      buildHeroRevealTimeline(elements).play(0),
+    ),
+  );
 };
 
 const buildTextReveals = () => {

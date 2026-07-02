@@ -61,14 +61,18 @@ const socialImageUrl = toAbsoluteUrl(socialImagePath, siteUrl);
 
     <script is:inline>
       (() => {
-        const key = 'redtail:hasSeenIntro';
+        const introKey = 'redtail:hasSeenIntro';
+        const navKey = 'redtail:navCover';
+        const root = document.documentElement;
 
         try {
-          if (window.sessionStorage.getItem(key) !== 'true') {
-            document.documentElement.classList.add('rt-intro-boot');
+          if (window.sessionStorage.getItem(navKey) === 'true') {
+            root.classList.add('rt-nav-boot');
+          } else if (window.sessionStorage.getItem(introKey) !== 'true') {
+            root.classList.add('rt-intro-boot');
           }
         } catch {
-          document.documentElement.classList.add('rt-intro-boot');
+          root.classList.add('rt-intro-boot');
         }
       })();
     </script>

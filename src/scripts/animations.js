@@ -2,16 +2,22 @@ const TRANSITION_CLASS = "is-transitioning";
 const INITIAL_LOADING_CLASS = "is-initial-loading";
 const INITIAL_LOADING_EXIT_CLASS = "is-initial-loading-exit";
 const INTRO_BOOT_CLASS = "rt-intro-boot";
+const NAV_BOOT_CLASS = "rt-nav-boot";
 const SESSION_KEY_HAS_SEEN_INTRO = "redtail:hasSeenIntro";
+const SESSION_KEY_NAV_COVER = "redtail:navCover";
+const OVERLAY_REVEAL_EVENT = "redtail:overlay-reveal";
 
 const FALLBACK_TIMINGS = {
-  transitionDuration: 750,
+  transitionDuration: 400,
+  transitionOutDuration: 500,
+  navHold: 500,
+  navMaxWait: 1500,
   introMinHold: 550,
   introMaxWait: 2200,
-  introFadeDuration: 280,
 };
 
 let navigationInProgress = false;
+let bootSequenceActive = false;
 
 const delay = ms =>
   new Promise(resolve => window.setTimeout(resolve, Math.max(0, ms)));
@@ -53,6 +59,12 @@ const getTimings = () => ({
     "--page-transition-duration",
     FALLBACK_TIMINGS.transitionDuration,
   ),
+  transitionOutDuration: getTimingMs(
+    "--page-transition-out-duration",
+    FALLBACK_TIMINGS.transitionOutDuration,
+  ),
+  navHold: getTimingMs("--page-nav-hold", FALLBACK_TIMINGS.navHold),
+  navMaxWait: getTimingMs("--page-nav-max-wait", FALLBACK_TIMINGS.navMaxWait),
   introMinHold: getTimingMs(
     "--page-intro-min-hold",
     FALLBACK_TIMINGS.introMinHold,
@@ -60,10 +72,6 @@ const getTimings = () => ({
   introMaxWait: getTimingMs(
     "--page-intro-max-wait",
     FALLBACK_TIMINGS.introMaxWait,
-  ),
-  introFadeDuration: getTimingMs(
-    "--page-intro-fade-duration",
-    FALLBACK_TIMINGS.introFadeDuration,
   ),
 });
 
@@ -88,7 +96,7 @@ const waitForFontsReady = () => {
   return document.fonts.ready.catch(() => undefined);
 };
 
-const waitForTransitionEnd = (element, maxWaitMs) => {
+const waitForTransitionEnd = (element, maxWaitMs, propertyName) => {
   if (!(element instanceof HTMLElement)) {
     return delay(maxWaitMs);
   }
@@ -111,12 +119,28 @@ const waitForTransitionEnd = (element, maxWaitMs) => {
         return;
       }
 
+      if (propertyName && event.propertyName !== propertyName) {
+        return;
+      }
+
       done();
     };
 
     element.addEventListener("transitionend", onEnd);
     window.setTimeout(done, Math.max(0, maxWaitMs));
   });
+};
+
+const nextFrames = () =>
+  new Promise(resolve => {
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(resolve);
+    });
+  });
+
+// Lets animations2.js hold hero/in-view reveals until the curtain lifts.
+const announceOverlayReveal = () => {
+  document.dispatchEvent(new CustomEvent(OVERLAY_REVEAL_EVENT));
 };
 
 const shouldRunInitialIntro = () => {
@@ -134,6 +158,7 @@ const shouldRunInitialIntro = () => {
 
 const clearIntroClasses = () => {
   document.documentElement.classList.remove(INTRO_BOOT_CLASS);
+  document.documentElement.classList.remove(NAV_BOOT_CLASS);
   document.body.classList.remove(INITIAL_LOADING_EXIT_CLASS);
   document.body.classList.remove(INITIAL_LOADING_CLASS);
 };
@@ -141,40 +166,105 @@ const clearIntroClasses = () => {
 const runInitialIntro = async () => {
   if (!shouldRunInitialIntro()) {
     clearIntroClasses();
+    announceOverlayReveal();
     return;
   }
 
   if (prefersReducedMotion()) {
     clearIntroClasses();
+    announceOverlayReveal();
     return;
   }
 
-  const timings = getTimings();
-  const overlay = document.querySelector("[data-site-transition]");
+  bootSequenceActive = true;
 
-  document.body.classList.add(INITIAL_LOADING_CLASS);
+  try {
+    const timings = getTimings();
+    const overlay = document.querySelector("[data-site-transition]");
 
-  await Promise.race([
-    Promise.all([
-      delay(timings.introMinHold),
-      waitForPageLoad(),
-      waitForFontsReady(),
-    ]),
-    delay(timings.introMaxWait),
-  ]);
+    document.body.classList.add(INITIAL_LOADING_CLASS);
 
-  if (navigationInProgress) {
+    await Promise.race([
+      Promise.all([
+        delay(timings.introMinHold),
+        waitForPageLoad(),
+        waitForFontsReady(),
+      ]),
+      delay(timings.introMaxWait),
+    ]);
+
+    if (navigationInProgress) {
+      return;
+    }
+
+    document.body.classList.add(INITIAL_LOADING_EXIT_CLASS);
+    announceOverlayReveal();
+    await waitForTransitionEnd(
+      overlay,
+      timings.transitionOutDuration + 120,
+      "transform",
+    );
+
+    if (navigationInProgress) {
+      return;
+    }
+
+    clearIntroClasses();
+  } finally {
+    bootSequenceActive = false;
+  }
+};
+
+// Arrival half of a navigation: the page booted covered by the curtain
+// (rt-nav-boot was added pre-paint), so lift it up and out.
+const runNavReveal = async () => {
+  try {
+    sessionStorage.removeItem(SESSION_KEY_NAV_COVER);
+  } catch {
+    // Ignore storage failures; the reveal still runs.
+  }
+
+  if (prefersReducedMotion()) {
+    clearIntroClasses();
+    announceOverlayReveal();
     return;
   }
 
-  document.body.classList.add(INITIAL_LOADING_EXIT_CLASS);
-  await waitForTransitionEnd(overlay, timings.introFadeDuration + 120);
+  bootSequenceActive = true;
 
-  if (navigationInProgress) {
-    return;
+  try {
+    const timings = getTimings();
+    const overlay = document.querySelector("[data-site-transition]");
+
+    document.body.classList.add(INITIAL_LOADING_CLASS);
+
+    // Hold the cover long enough for the logo to register, and give the
+    // page frames/fonts to settle underneath it.
+    await Promise.race([
+      Promise.all([delay(timings.navHold), nextFrames(), waitForFontsReady()]),
+      delay(timings.navMaxWait),
+    ]);
+
+    if (navigationInProgress) {
+      return;
+    }
+
+    document.body.classList.add(INITIAL_LOADING_EXIT_CLASS);
+    announceOverlayReveal();
+    await waitForTransitionEnd(
+      overlay,
+      timings.transitionOutDuration + 120,
+      "transform",
+    );
+
+    if (navigationInProgress) {
+      return;
+    }
+
+    clearIntroClasses();
+  } finally {
+    bootSequenceActive = false;
   }
-
-  clearIntroClasses();
 };
 
 const isModifiedClick = event =>
@@ -247,15 +337,30 @@ const startPageTransition = href => {
   }
 
   navigationInProgress = true;
+
+  if (prefersReducedMotion()) {
+    window.location.assign(href);
+    return;
+  }
+
+  // Tell the destination page to boot covered so the curtain can lift there.
+  try {
+    sessionStorage.setItem(SESSION_KEY_NAV_COVER, "true");
+  } catch {
+    // Without storage the destination simply loads uncovered.
+  }
+
   document.body.classList.add(TRANSITION_CLASS);
   clearIntroClasses();
 
   const { transitionDuration } = getTimings();
-  const transitionDelay = prefersReducedMotion() ? 0 : transitionDuration;
+  const overlay = document.querySelector("[data-site-transition]");
 
-  window.setTimeout(() => {
-    window.location.assign(href);
-  }, transitionDelay);
+  waitForTransitionEnd(overlay, transitionDuration + 120, "transform").then(
+    () => {
+      window.location.assign(href);
+    },
+  );
 };
 
 const onDocumentClick = event => {
@@ -270,14 +375,23 @@ const onDocumentClick = event => {
   startPageTransition(anchor.href);
 };
 
-const clearTransitionState = () => {
+const clearTransitionState = force => {
+  // Don't wipe the overlay classes out from under a running intro/reveal.
+  if (bootSequenceActive && !force) {
+    return;
+  }
+
   navigationInProgress = false;
   document.body.classList.remove(TRANSITION_CLASS);
   clearIntroClasses();
 };
 
 document.addEventListener("click", onDocumentClick);
-window.addEventListener("pageshow", clearTransitionState);
+
+window.addEventListener("pageshow", event => {
+  clearTransitionState(event.persisted);
+});
+
 window.addEventListener(
   "load",
   () => {
@@ -285,11 +399,18 @@ window.addEventListener(
       return;
     }
 
-    clearTransitionState();
+    clearTransitionState(false);
   },
   { once: true },
 );
 
-runInitialIntro().catch(() => {
+const bootSequence = document.documentElement.classList.contains(
+  NAV_BOOT_CLASS,
+)
+  ? runNavReveal()
+  : runInitialIntro();
+
+bootSequence.catch(() => {
   clearIntroClasses();
+  announceOverlayReveal();
 });
