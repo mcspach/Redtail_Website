@@ -1,0 +1,53 @@
+---
+import Section from '../ui/Section.astro';
+import Container from '../ui/Container.astro';
+---
+
+<Section class="contact-form-section" tone="light">
+  <Container size="wide">
+    <div class="contact-form-section__layout">
+      <div class="contact-form-section__intro">
+        <p class="contact-form-section__eyebrow">Start A Project</p>
+        <h3>Tell us what you&apos;re building and we&apos;ll follow up with next steps.</h3>
+        <p>
+          Share a few details about your business, goals, and timeline. We&apos;ll
+          use this to prepare for the conversation and point you toward the best
+          starting place.
+        </p>
+
+        <div class="contact-form-section__details">
+          <div>
+            <span class="contact-form-section__detail-label">Email</span>
+            <a href="mailto:matthew@redtailwebdesign.com">
+              matthew@redtailwebdesign.com
+            </a>
+          </div>
+
+          <div>
+            <span class="contact-form-section__detail-label">Based In</span>
+            <p>Clovis, California</p>
+          </div>
+
+          <div>
+            <span class="contact-form-section__detail-label">Best For</span>
+            <p>Brand-led websites, redesigns, and strategic direction.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form-section__embed form-shell">
+        <iframe
+          src="https://docs.google.com/forms/d/e/1FAIpQLSe_UzF6bfjEtJB8ST2pDyePFs3ZxsG89tUzPK5KXbsEtJwLtg/viewform?embedded=true"
+          width="640"
+          height="1096"
+          frameborder="0"
+          marginheight="0"
+          marginwidth="0"
+          title="RedTail project inquiry form"
+        >
+          Loading…
+        </iframe>
+      </div>
+    </div>
+  </Container>
+</Section>
