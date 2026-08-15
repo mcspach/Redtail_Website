@@ -4,6 +4,10 @@ import SplitType from "split-type";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Mobile browsers fire resize whenever the URL bar collapses or expands during
+// scroll. Keep ScrollTrigger from refreshing itself on those height-only events.
+ScrollTrigger.config({ ignoreMobileResize: true });
+
 // Add or remove selectors here.
 const scrollRevealTargets = [
   ".contact__content h3",
@@ -37,6 +41,10 @@ const heroMdReveal = [
 const activeSplits = [];
 const activeTriggers = [];
 
+// Nodes whose entrance animation has already run. A width-change rebuild
+// must restore these to their finished state, not replay them.
+const playedNodes = new WeakSet();
+
 // While the transition curtain covers the page, hold entrance animations so
 // they play as the curtain lifts instead of finishing unseen behind it.
 // animations.js dispatches this event the moment the curtain starts to lift.
@@ -65,14 +73,25 @@ const whenOverlayRevealed = callback => {
 
 const revealStates = {
   lines: {
-    yPercent: 100,
+    yPercent: 75,
     opacity: 0,
   },
   chars: {
-    yPercent: 120,
+    yPercent: 90,
     opacity: 0,
   },
 };
+
+// Finished state for split text, used when a rebuild re-splits a node whose
+// reveal already played.
+const revealedState = {
+  yPercent: 0,
+  opacity: 1,
+};
+
+// Distance a fade-up element travels. Shared so the hidden state and the
+// timeline's `from` value cannot drift apart.
+const FADE_UP_OFFSET = 75;
 
 const buildRevealTimeline = split => {
   const timeline = gsap.timeline({
@@ -114,7 +133,7 @@ const buildFadeUpTimeline = node => {
   timeline.fromTo(
     node,
     {
-      y: 75,
+      y: FADE_UP_OFFSET,
       opacity: 0,
     },
     {
@@ -174,15 +193,28 @@ const setupRevealForNode = node => {
     word.style.whiteSpace = "nowrap";
   });
 
+  // A rebuild re-splits for the new line breaks, but a reveal the user has
+  // already watched must come back finished rather than replay.
+  if (playedNodes.has(node)) {
+    gsap.set(split.lines, revealedState);
+    gsap.set(split.chars, revealedState);
+    return;
+  }
+
   gsap.set(split.lines, revealStates.lines);
   gsap.set(split.chars, revealStates.chars);
 
   const timeline = buildRevealTimeline(split);
 
+  const play = () => {
+    playedNodes.add(node);
+    timeline.restart(true);
+  };
+
   const trigger = ScrollTrigger.create({
     trigger: node,
     start: "top 85%",
-    onEnter: () => timeline.restart(true),
+    onEnter: play,
     // onEnterBack: () => timeline.restart(true),
     // onLeaveBack: () => timeline.pause(0),
   });
@@ -190,28 +222,42 @@ const setupRevealForNode = node => {
   activeTriggers.push(trigger);
 
   if (trigger.isActive) {
-    whenOverlayRevealed(() => timeline.restart(true));
+    whenOverlayRevealed(play);
   }
 };
 
 const setupFadeUpForNode = node => {
+  if (playedNodes.has(node)) {
+    gsap.set(node, {
+      y: 0,
+      opacity: 1,
+      clearProps: "transform,opacity",
+    });
+    return;
+  }
+
   gsap.set(node, {
-    y: 28,
+    y: FADE_UP_OFFSET,
     opacity: 0,
   });
 
   const timeline = buildFadeUpTimeline(node);
 
+  const play = () => {
+    playedNodes.add(node);
+    timeline.restart(true);
+  };
+
   const trigger = ScrollTrigger.create({
     trigger: node,
     start: "top 85%",
-    onEnter: () => timeline.restart(true),
+    onEnter: play,
   });
 
   activeTriggers.push(trigger);
 
   if (trigger.isActive) {
-    whenOverlayRevealed(() => timeline.restart(true));
+    whenOverlayRevealed(play);
   }
 };
 
@@ -223,6 +269,14 @@ const setupHeroReveal = selectors => {
   if (!elements.length) {
     return;
   }
+
+  // The hero holds no split text, so a rebuild has nothing to redo here. Bail
+  // before the hide below, which is what makes it flash on every resize.
+  if (elements.every(element => playedNodes.has(element))) {
+    return;
+  }
+
+  elements.forEach(element => playedNodes.add(element));
 
   gsap.set(elements, {
     y: 28,
@@ -245,8 +299,6 @@ const buildTextReveals = () => {
 
   activeTriggers.forEach(trigger => trigger.kill());
   activeTriggers.length = 0;
-
-  ScrollTrigger.getAll().forEach(trigger => trigger.kill());
 
   scrollRevealTargets.forEach(selector => {
     const nodes = document.querySelectorAll(selector);
@@ -272,8 +324,20 @@ const buildTextReveals = () => {
 
 buildTextReveals();
 
+let lastWidth = window.innerWidth;
 let resizeTimer;
+
 window.addEventListener("resize", () => {
+  const width = window.innerWidth;
+
+  // Mobile URL-bar show/hide fires resize with a height-only change, and a
+  // rebuild there would re-trigger every animation mid-scroll. SplitType line
+  // boxes only depend on width, so there is nothing to redo.
+  if (width === lastWidth) {
+    return;
+  }
+
+  lastWidth = width;
   window.clearTimeout(resizeTimer);
   resizeTimer = window.setTimeout(buildTextReveals, 200);
 });
