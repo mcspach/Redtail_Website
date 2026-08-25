@@ -50,15 +50,18 @@ const workImageItems = [
 const workVideoItems = [
   {
     src: 'https://res.cloudinary.com/dgqpeqpsf/video/upload/v1780506862/SocialMediaClip8x10_td9qsv.mp4',
+    poster: withBase('/images/video-posters/social-clip.jpg'),
     label: 'Social media showreel clip',
   },
   {
     src: 'https://res.cloudinary.com/dgqpeqpsf/video/upload/v1780506768/distinct_showreel_v7shqm.mp4',
+    poster: withBase('/images/video-posters/distinct-showreel.jpg'),
     label: 'Distinct Creative Group showreel clip',
     href: getCaseStudyUrl('distinct-creative-group'),
   },
   {
     src: 'https://res.cloudinary.com/dgqpeqpsf/video/upload/v1780506765/bravo_reel_1_ncmrvg.mp4',
+    poster: withBase('/images/video-posters/bravo-reel.jpg'),
     label: 'Bravo Farms showreel clip',
     href: getCaseStudyUrl('bravo-farms'),
   },
@@ -129,11 +132,12 @@ const marqueeRows = [
                   <video
                     class="work__video"
                     src={item.src}
-                    autoplay
+                    poster={item.poster}
+                    data-video-autoplay
                     muted
                     loop
                     playsinline
-                    preload="metadata"
+                    preload="none"
                     aria-hidden="true"
                   ></video>
                   <span class="sr-only">{item.label}</span>
@@ -143,11 +147,12 @@ const marqueeRows = [
                   <video
                     class="work__video"
                     src={item.src}
-                    autoplay
+                    poster={item.poster}
+                    data-video-autoplay
                     muted
                     loop
                     playsinline
-                    preload="metadata"
+                    preload="none"
                     aria-label={item.label}
                   ></video>
                 </figure>
@@ -182,11 +187,12 @@ const marqueeRows = [
                   <video
                     class="work__video"
                     src={item.src}
-                    autoplay
+                    poster={item.poster}
+                    data-video-autoplay
                     muted
                     loop
                     playsinline
-                    preload="metadata"
+                    preload="none"
                     aria-hidden="true"
                   ></video>
                 </a>
@@ -195,11 +201,12 @@ const marqueeRows = [
                   <video
                     class="work__video"
                     src={item.src}
-                    autoplay
+                    poster={item.poster}
+                    data-video-autoplay
                     muted
                     loop
                     playsinline
-                    preload="metadata"
+                    preload="none"
                     aria-hidden="true"
                   ></video>
                 </figure>

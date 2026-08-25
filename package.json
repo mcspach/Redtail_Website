@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && node ./scripts/relativize-dist.mjs",
-    "preview": "astro preview"
+    "build": "astro build && node ./scripts/relativize-dist.mjs && node ./scripts/check-case-studies.mjs",
+    "preview": "astro preview",
+    "check:case-studies": "node ./scripts/check-case-studies.mjs"
   },
   "devDependencies": {
     "astro": "^6.2.0",

@@ -11,6 +11,11 @@ import SocialProof from '../components/sections/SocialProof.astro';
   description="Have a project in mind? Let’s talk. Start a project with RedTail Web Design and share your goals, timeline, and project details."
   canonicalPath="/contact/"
   socialImagePath="/og_image.png"
+  pageType="ContactPage"
+  breadcrumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Contact', path: '/contact/' },
+  ]}
 >
   <main>
     <HeroMd

@@ -1868,6 +1868,23 @@ select:focus {
   margin-top: 0.35rem;
 }
 
+/* Case study list treatment, applied uniformly across all four pages:
+   Outcomes lists get a bold lead-in so the claim reads first; supporting lists
+   (goals, challenges, solutions) stay plain. Reserving the emphasis for the
+   payoff is what keeps it meaningful — don't spread it to the other lists. */
+.case-study-text-column li strong {
+  color: var(--color-text-on-dark);
+  font-weight: 700;
+}
+
+/* h2/h3/h4 otherwise share one size; h4 is a sub-heading inside a section, so
+   it steps down and drops the accent color to stay subordinate to its parent. */
+.case-study-text-column h4 {
+  color: var(--color-text-on-dark);
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  letter-spacing: 0.06em;
+}
+
 .case-study-wide-video {
   display: grid;
   gap: 0.85rem;
@@ -1926,6 +1943,13 @@ select:focus {
   .case-study-hero__content,
   .case-study-row {
     grid-template-columns: minmax(0, 0.44fr) minmax(0, 0.56fr);
+  }
+
+  /* A row carrying text with no paired image. Matches the measure of the wider
+     text column above so line length stays consistent page to page, rather
+     than stretching prose across the full container. */
+  .case-study-row--single {
+    grid-template-columns: minmax(0, 0.56fr);
   }
 }
 

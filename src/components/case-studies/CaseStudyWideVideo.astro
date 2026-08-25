@@ -31,12 +31,12 @@ const {
       class="case-study-wide-video__player"
       src={withBase(src)}
       poster={poster ? withBase(poster) : undefined}
-      autoplay={autoplay}
+      data-video-autoplay={autoplay ? '' : undefined}
       loop={loop}
-      muted={muted}
+      muted={muted || autoplay}
       controls={controls}
       playsinline
-      preload="metadata"
+      preload={autoplay ? 'none' : 'metadata'}
     >
       Your browser does not support the video tag.
     </video>

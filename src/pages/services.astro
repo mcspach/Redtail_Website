@@ -7,6 +7,11 @@ import Features from '../components/sections/Features.astro';
 import Testimonial from '../components/sections/Testimonial.astro'
 import CaseStudies from '../components/sections/CaseStudies.astro';
 import SocialProof from '../components/sections/SocialProof.astro';
+
+import { offerings } from '../data/services';
+import { buildOfferCatalog, offerCatalogId } from '../utils/schema';
+
+const siteUrl = Astro.site!;
 ---
 
 <BaseLayout
@@ -14,6 +19,12 @@ import SocialProof from '../components/sections/SocialProof.astro';
   description="Explore brand design, custom websites, brand and website packages, audits, and ongoing design and development support from RedTail Web Design."
   canonicalPath="/services/"
   socialImagePath="/og_image.png"
+  breadcrumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Services', path: '/services/' },
+  ]}
+  mainEntityId={offerCatalogId(siteUrl)}
+  schema={[buildOfferCatalog(offerings, siteUrl)]}
 >
   <main>
     <HeroMd

@@ -3,7 +3,6 @@ import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
 import CaseStudyRow from '../../components/case-studies/CaseStudyRow.astro';
 import CaseStudyImageColumn from '../../components/case-studies/CaseStudyImageColumn.astro';
 import CaseStudyTextColumn from '../../components/case-studies/CaseStudyTextColumn.astro';
-import CaseStudyWideImage from '../../components/case-studies/CaseStudyWideImage.astro';
 import CaseStudyWideVideo from '../../components/case-studies/CaseStudyWideVideo.astro';
 import CaseStudyQuote from '../../components/case-studies/CaseStudyQuote.astro';
 import { getCaseStudyBySlug } from '../../data/caseStudies';
@@ -51,6 +50,7 @@ if (!study) {
   <CaseStudyWideVideo
     src="https://res.cloudinary.com/dgqpeqpsf/video/upload/v1780506765/bravo_reel_1_ncmrvg.mp4"
     title="Bravo Farms case study reel of web design and branding work"
+    poster="/images/video-posters/bravo-reel.jpg"
     autoplay={true}
     loop={true}
     muted={true}
@@ -60,7 +60,7 @@ if (!study) {
 
   <CaseStudyRow>
     <CaseStudyTextColumn>
-      <h2>Challenges</h2>
+      <h2>The Challenge</h2>
       <p>
         The site needed to balance a lot of visual energy with a cleaner
         shopping experience. Messaging, browsing paths, and merchandising all
@@ -81,7 +81,7 @@ if (!study) {
   </CaseStudyRow>
 
   <CaseStudyQuote author="Bravo Farms engagement">
-    The redesign direction focused on making the experience feel more curated
+    The redesign focused on making the experience feel more curated
     and easier to browse while preserving the brand&apos;s playful, destination-led
     character.
   </CaseStudyQuote>
@@ -93,18 +93,22 @@ if (!study) {
       caption=""
     />
     <CaseStudyTextColumn>
-      <h2>Results</h2>
-      <p>
-        The resulting design concept brought more structure to the shopping
-        experience and gave Bravo Farms a more polished visual system for
-        digital storytelling.
-      </p>
-      <h3>Summary</h3>
-      <p>
-        This case study establishes the template for future RedTail case-study
-        pages: clear narrative framing, strong visual presentation, and enough
-        flexibility to expand with additional screenshots and refined copy.
-      </p>
+      <h2>Outcomes</h2>
+      <ul>
+        <li>
+          <strong>Time on page doubled.</strong> Visitors spent twice as long
+          on location pages as they did before.
+        </li>
+        <li>
+          <strong>No more dead ends.</strong> Every location page now leads
+          somewhere. Visitors can order, check upcoming events, or move on to
+          another location.
+        </li>
+        <li>
+          <strong>Two jobs, cleanly separated.</strong> Ecommerce and
+          destination marketing content no longer compete for the same space.
+        </li>
+      </ul>
     </CaseStudyTextColumn>
   </CaseStudyRow>
 </CaseStudyLayout>

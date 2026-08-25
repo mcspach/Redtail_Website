@@ -33,7 +33,7 @@ export const caseStudies: CaseStudyMeta[] = [
     cardAlt: "Bravo Farms website mockup shown on desktop and tablet devices",
     services: ["Web Design", "Shopify Development"],
     summary:
-      "An ecommerce refresh built to highlight Bravo Farms&apos; visual identity, giftable products, and destination appeal.",
+      "An ecommerce refresh built to highlight Bravo Farms’ visual identity, giftable products, and destination appeal.",
     featured: true,
     published: true,
   },
@@ -85,6 +85,9 @@ export const caseStudies: CaseStudyMeta[] = [
 export const featuredCaseStudies = caseStudies.filter(
   (study) => study.featured && study.published,
 );
+
+/** Case studies with a live detail page — the only ones safe to link or index. */
+export const publishedCaseStudies = caseStudies.filter((study) => study.published);
 
 export const getCaseStudyBySlug = (slug: string) =>
   caseStudies.find(study => study.slug === slug);

@@ -6,6 +6,11 @@ import Work from '../components/sections/Work.astro';
 import CaseStudyList from '../components/sections/CaseStudyList.astro';
 import Contact from '../components/sections/Contact.astro';
 import SocialProof from '../components/sections/SocialProof.astro';
+
+import { publishedCaseStudies } from '../data/caseStudies';
+import { buildCaseStudyList, caseStudyListId } from '../utils/schema';
+
+const siteUrl = Astro.site!;
 ---
 
 <BaseLayout
@@ -13,6 +18,13 @@ import SocialProof from '../components/sections/SocialProof.astro';
   description="Explore RedTail Web Design case studies in branding, web design, web development, ecommerce, and website audits for growing brands."
   canonicalPath="/case-studies/"
   socialImagePath="/og_image.png"
+  pageType="CollectionPage"
+  breadcrumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Case Studies', path: '/case-studies/' },
+  ]}
+  mainEntityId={caseStudyListId(siteUrl)}
+  schema={[buildCaseStudyList(publishedCaseStudies, siteUrl)]}
 >
   <main>
     <HeroMd

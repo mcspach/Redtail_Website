@@ -5,12 +5,23 @@ import Grain from '../components/sections/Grain.astro';
 import Header from '../components/sections/Header.astro';
 import Footer from '../components/sections/Footer.astro';
 import { toAbsoluteUrl, withBase } from '../utils/paths';
+import {
+  buildBreadcrumbList,
+  buildGraph,
+  buildOrganization,
+  buildWebPage,
+  buildWebSite,
+  serializeJsonLd,
+} from '../utils/schema';
+import {
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_SOCIAL_IMAGE_PATH,
+} from '../data/site';
 
-const SITE_NAME = 'RedTail Web Design';
 const DEFAULT_TITLE = 'RedTail Web Design | Digital Solutions in Clovis CA';
-const DEFAULT_DESCRIPTION =
-  'Premium Web and Brand Design for Creatives and Entrepreneurs. Based in Clovis, California, serving clients worldwide.';
-const DEFAULT_SOCIAL_IMAGE_PATH = '/og_image.png';
+const DEFAULT_DESCRIPTION = SITE_DESCRIPTION;
+const DEFAULT_SOCIAL_IMAGE_PATH = SITE_SOCIAL_IMAGE_PATH;
 const DEFAULT_THEME_COLOR = '#ffffff';
 
 const {
@@ -20,11 +31,41 @@ const {
   socialImagePath = DEFAULT_SOCIAL_IMAGE_PATH,
   ogType = 'website',
   noindex = false,
+  pageType = 'WebPage',
+  isHomePage = false,
+  breadcrumbs = null,
+  mainEntityId = undefined,
+  schema = [],
 } = Astro.props;
 
 const siteUrl = Astro.site ?? new URL('https://www.redtailwebdesign.com');
 const canonicalUrl = toAbsoluteUrl(canonicalPath, siteUrl);
 const socialImageUrl = toAbsoluteUrl(socialImagePath, siteUrl);
+
+// Every page emits one JSON-LD @graph: the shared Organization and WebSite
+// nodes, this page's WebPage node, an optional BreadcrumbList, plus whatever
+// page-specific nodes the caller passed in. buildGraph dedupes by @id.
+const jsonLd = serializeJsonLd(
+  buildGraph([
+    buildOrganization(siteUrl),
+    buildWebSite(siteUrl),
+    buildWebPage({
+      site: siteUrl,
+      path: canonicalPath,
+      name: title,
+      description,
+      imageUrl: socialImageUrl,
+      type: pageType,
+      isHomePage,
+      hasBreadcrumb: Boolean(breadcrumbs?.length),
+      mainEntityId,
+    }),
+    ...(breadcrumbs?.length
+      ? [buildBreadcrumbList(breadcrumbs, canonicalPath, siteUrl)]
+      : []),
+    ...schema,
+  ]),
+);
 ---
 
 <!DOCTYPE html>
@@ -58,6 +99,8 @@ const socialImageUrl = toAbsoluteUrl(socialImagePath, siteUrl);
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImageUrl} />
+
+    <script type="application/ld+json" is:inline set:html={jsonLd} />
 
     <script is:inline>
       (() => {
@@ -108,6 +151,7 @@ const socialImageUrl = toAbsoluteUrl(socialImagePath, siteUrl);
     <script>
       import '../scripts/animations.js';
       import '../scripts/animations2.js';
+      import '../scripts/video-autoplay.js';
     </script>
 </body>
 </html>

@@ -5,7 +5,8 @@ import Container from '../components/ui/Container.astro';
 import Contact from '../components/sections/Contact.astro';
 import CaseStudies from '../components/sections/CaseStudies.astro';
 import SocialProof from '../components/sections/SocialProof.astro';
-import { withBase } from '../utils/paths';
+import { toAbsoluteUrl, withBase } from '../utils/paths';
+import { buildCaseStudyArticle, caseStudyArticleId } from '../utils/schema';
 
 const {
   slug = '',
@@ -17,15 +18,45 @@ const {
   year = '',
   heroImage = '',
   heroAlt = '',
+  datePublished = undefined,
 } = Astro.props;
+
+const siteUrl = Astro.site!;
+const socialImagePath = heroImage || '/og_image.png';
+
+// Only emit a date when we actually have one. A bare four-digit year is valid
+// ISO 8601; anything looser (a range, a season) is left out rather than guessed.
+const isoDate =
+  datePublished ?? (/^\d{4}$/.test(String(year)) ? String(year) : undefined);
+
+// The page is an ItemPage whose main entity is the case study Article.
+const caseStudySchema = buildCaseStudyArticle({
+  site: siteUrl,
+  slug,
+  title,
+  description,
+  summary,
+  services,
+  client,
+  imageUrl: toAbsoluteUrl(socialImagePath, siteUrl),
+  datePublished: isoDate,
+});
 ---
 
 <BaseLayout
   title={`${title} Case Study | RedTail Web Design`}
   description={description}
   canonicalPath={`/case-studies/${slug}/`}
-  socialImagePath={heroImage || '/og_image.png'}
+  socialImagePath={socialImagePath}
   ogType="article"
+  pageType="ItemPage"
+  breadcrumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Case Studies', path: '/case-studies/' },
+    { name: title, path: `/case-studies/${slug}/` },
+  ]}
+  mainEntityId={caseStudyArticleId(slug, siteUrl)}
+  schema={[caseStudySchema]}
 >
   <main class="case-study-page">
     <section class="case-study-hero">
